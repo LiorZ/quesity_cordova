@@ -1,0 +1,20 @@
+.ui-page-theme-a {
+	background: rgba(74,150,225,1) no-repeat fixed !important;
+	background: -moz-linear-gradient(top, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) no-repeat fixed !important;
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(74,150,225,1)), color-stop(73%, rgba(245,241,158,1)), color-stop(100%, rgba(245,241,158,1))) no-repeat fixed !important;
+	background: -webkit-linear-gradient(top, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) no-repeat fixed !important;
+	background: -o-linear-gradient(top, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) no-repeat fixed !important;
+	background: -ms-linear-gradient(top, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) !important;
+	background: linear-gradient(to bottom, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) no-repeat fixed !important;
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a96e1', endColorstr='#f5f19e', GradientType=0 );
+	height:100%
+}
+
+.main-menu-btn {
+	font-size:3em !important;
+	height:10%;
+	margin-bottom:4% !important;
+	margin-left:5% !important;
+	margin-right:5% !important;
+}
