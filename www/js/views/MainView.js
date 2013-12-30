@@ -18,7 +18,8 @@ define(['Backbone'], function(Backbone) {
 			if ( this.currentChild === undefined ) {
 				return;
 			}
-
+			var j_obj = this.currentChild.render();
+			$('body').append(j_obj);
 			this.$el.html( this.currentChild.render() );
 			this.$el.trigger("create");
 		}

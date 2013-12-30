@@ -12,9 +12,70 @@
 }
 
 .main-menu-btn {
-	font-size:3em !important;
+	font-size:2em !important;
 	height:10%;
 	margin-bottom:4% !important;
-	margin-left:5% !important;
-	margin-right:5% !important;
+}
+
+#menu_buttons {
+	padding-left:10%;
+	padding-right:10%;
+}
+
+#facebook_login_div { 
+	position:relative;
+	top:-5%;
+	background: url(../img/facebook-login-button.png) no-repeat center;
+	background-size: contain;
+	height:25%;
+	width:70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+#logo {
+	max-width: 100%;
+	width:auto;
+}
+
+#logo_div {
+	background: url(../img/logo.png) no-repeat center;
+	background-size: contain;
+	height: 25%;
+	margin-right: 5%;
+	display: block;
+	margin-left: 5%;
+}
+
+#clouds_div {
+	background: url(../img/clouds_hdpi.png) no-repeat top;
+	background-size: contain;
+	height: 25%;
+	display: block;
+}
+#game_container {
+	height: 100%;
+}
+#buildings_div {
+	width: 100%;
+	background: url(../img/buildings.png) no-repeat bottom;
+	background-size: contain;
+	height: 50%;
+	display: block;
+	position: absolute;
+	bottom: 0%;
+}
+#game_button_container {
+	width:100%;
+	text-align:center;
+}
+
+#page_container {
+	height: 94.5%;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+#game_button_container button {
+	display:inline;
+	width:32.5%;
+	margin:0px;
 }

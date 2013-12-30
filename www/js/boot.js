@@ -8,8 +8,9 @@ require.config({
     BackboneRelational: 'lib/backbone/backbone-relational',
     domReady:'lib/require/domReady',
     jqm:"lib/jquery-ui-mobile/jquery.mobile-1.4.0",
-    fastclick: 'lib/fastclick/fastclick.min'
-
+    fastclick: 'lib/fastclick/fastclick.min',
+    'fb-connect': 'lib/facebook/cdv-plugin-fb-connect',
+    'facebook-js-sdk':'lib/facebook/facebook-js-sdk'
   },
 
   shim: {
@@ -17,16 +18,23 @@ require.config({
 		deps:['jQuery'],
 		exports:'_'
 	},
+
+	'jquery-jsonp': {
+		deps: ['jQuery']
+	},
+
 	'jQuery': {
 		exports:'$'
 	},
+	
     'Backbone': {
-	deps: ['Underscore', 'jQuery'],
-	exports:'Backbone'
-    } ,
-    'BackboneRelational':{
-	deps:['Backbone'],
-	exports: 'BackboneRelational'
+    	deps: ['Underscore', 'jQuery'],
+    	exports:'Backbone'
+     },
+     
+     'BackboneRelational':{
+    	deps:['Backbone'],
+    	exports: 'BackboneRelational'
     },
     jqm: {
 	deps: ['jQuery']
@@ -34,8 +42,8 @@ require.config({
   }
 });
 
-define(['jqm','domReady','Backbone','routers/AppRouter'], 
-function(jqm,domReady,Backbone,AppRouter) {
+define(['jqm','domReady','Backbone','BackboneRelational','routers/AppRouter','fb-connect','facebook-js-sdk','api'], 
+function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_sdk,api) {
 	
 		// domReady is RequireJS plugin that triggers when DOM is ready
 		console.log("Before DomReady");
@@ -43,27 +51,59 @@ function(jqm,domReady,Backbone,AppRouter) {
 
 			function onDeviceReady(desktop) {
 				console.log("Entered onDeviceReady");
-			// Hiding splash screen when app is loaded
-//				if (desktop !== true)
-					//cordova.exec(null, null, 'SplashScreen', 'hide', []);
+				if ( !desktop )
+					navigator.splashscreen.hide();
+				
+				FB.init({
+					appId: '211673598896341',
+					nativeInterface: CDV.FB,
+					useCachedDialogs: false
+				});
+				
+				var handleStatusChange = function(response) {
+					  if (response.status == "connected" ) {
+						console.log("Got a valid response");
+					    console.log(JSON.stringify(response));
+						var json_to_send = {
+								facebook_id: response.authResponse.userId,
+								access_token: response.authResponse.accessToken
+							};
+							$.post(api.register_facebook,json_to_send, function(data,textStatus,xhr) {
+								if ( xhr.status ==  200 ){
+									window.localStorage.setItem('account_id',JSON.stringify(data._id));
+									window.location.hash="#home";
+								}
+								else{
+									console.log("Got a bad textstatus");
+									console.log(xhr.status);
+									window.location.hash = "#login";
+								}
+
+							});
+					  } else {
+						  console.log("Error getting response");
+						  console.log(JSON.stringify(response));
+						  window.location.hash = "#login";
+					  }
+					};
+
+	 
+				$.mobile.linkBindingEnabled = false;
+
+				// Disabling this will prevent jQuery Mobile from handling hash changes
+				$.mobile.hashListeningEnabled = false;
 				$.mobile.defaultPageTransition = 'slide';
-				$.mobile.allowCrossDomainPages = true;
-				$.support.cors = true;
-			
+				$.mobile.ajaxEnabled = false;
+				$.mobile.pushStateEnabled = false;
+
+				//Enabling cross origin resource sharing
+				$.support.cors=true;
 				var app_router = new AppRouter();
 				Backbone.history.start();
-				console.log("Started Backbone history");
+//				app_router.navigate("login", { trigger:true});
+				FB.Event.subscribe('auth.statusChange', handleStatusChange);
+				FB.getLoginStatus(handleStatusChange);
 
-				app_router.navigate("home", { trigger:true});
-				console.log("Navigated to home");
-
-			// Setting jQM pageContainer to #container div, this solves some jQM flickers & jumps
-			// I covered it here: http://outof.me/fixing-flickers-jumps-of-jquery-mobile-transitions-in-phonegap-apps/
-			//$.mobile.pageContainer = $('#container');
-
-			// Setting default transition to slide
-			// Pushing MainView
-			//$.mobile.jqmNavigator.pushView(new HomeView());
 			}
 
 			if (navigator.userAgent.match(/(iPad|iPhone|Android)/)) {

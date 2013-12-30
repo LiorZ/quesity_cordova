@@ -44,16 +44,19 @@ module.exports = function(grunt) {
       },
       debug_blackberry10: {
         command: 'cordova build blackberry10 && cordova emulate blackberry10'
+      },
+      clear_logcat_android: {
+	command: 'adb logcat -c'
       }
     },
     jshint: {
-      files: ['Gruntfile.js', 'www/js/*.js'],
+      files: [],
       options: {
         curly: false,
-        eqeqeq: false,
         immed: true,
         latedef: true,
         noarg: true,
+	smarttabs: true,
         sub: true,
         undef: false,
         boss: true,
@@ -67,16 +70,42 @@ module.exports = function(grunt) {
 		_ : true
         }
     }
+    },
+
+    copy: {
+	release: {
+		files: [
+			{expand: true, flatten:true, src:['config/config_release.js'],dest:'www/js'}
+		]
+	},
+
+	debug: {
+		files: [
+			{expand: true, flatten:true, src:['config/config_debug.js'],dest:'www/js'}
+		]
+	}
+    },
+
+    rename: {
+	release: { 
+		files: [ {src:['www/js/config_release.js'], dest:'www/js/config.js'} ]
+	},
+
+	debug: { 
+		files: [ {src:['www/js/config_debug.js'], dest:'www/js/config.js'} ]
+	}
+
+
     }
 });
 
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  
+  grunt.loadNpmTasks('grunt-contrib-copy'); 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  
+  grunt.loadNpmTasks('grunt-contrib-rename'); 
 
   // Custom tasks
   grunt.registerTask('min', ['uglify']); // polyfil for uglify
@@ -87,7 +116,19 @@ module.exports = function(grunt) {
 
   grunt.registerTask('debug_device','Create a debug build and run on device', function(platform) {
     grunt.task.run('jshint');
+    grunt.task.run('copy:debug');
+    grunt.task.run('rename:debug');
+    grunt.task.run('shell:clear_logcat_android');
     grunt.task.run('shell:debug_' + platform + "_device");
+  });
+
+  grunt.registerTask('release_device','Create a release buid and run it on the device', function(platform) {
+	grunt.task.run('jshint');
+	grunt.task.run('copy:release');
+	grunt.task.run('rename:release');
+	grunt.task.run('shell:clear_logcat_android');
+
+	grunt.task.run('shell:debug_' + platform + "_device");
   });
 
 

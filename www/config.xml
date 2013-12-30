@@ -4,10 +4,12 @@
     <description>
     	Quesity is a mobile app that lets you tour and experience big cities through a quest 
     </description>
+    <feature name="org.apache.cordova.facebook.Connect">
+<param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
+</feature>
     <author email="liorz1984@gmail.com" href="http://www.quesity.com">
-
 	Quesity Development Team	
-</author>
+   </author>
     <content src="index.html" />
     <access origin="*" />
 </widget>

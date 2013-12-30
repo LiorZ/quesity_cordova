@@ -1,10 +1,10 @@
-define(['Backbone'], 
-	function(Backbone) {
+define(['Backbone','text!templates/home_template.html','views/JQPageView'], 
+	function(Backbone,home_template, JQPageView) {
 		console.log("Defining HomeView");
-		var HomeView = Backbone.View.extend({
-			template:$('#home_view_template'),
+		var HomeView = JQPageView.extend({
 			render: function() {
-				this.$el.html(this.template.html());
+				var jq_obj = this.format_template(home_template);
+				this.$el.append(jq_obj);
 				return this.$el;
 			}	
 		});	
