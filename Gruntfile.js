@@ -18,6 +18,25 @@ module.exports = function(grunt) {
       },
       dist: {}
     },
+    
+   mocha_phantomjs: {
+    all: {
+      options: {
+        urls: [
+          "http://localhost:8000/js/tests/backbone/index.html",
+        ]
+      }
+    }
+  },
+  connect: {
+      server: {
+        options: {
+          port: 8000,
+          base: 'www/.',
+        }
+      }
+    },
+    
     uglify: {
       dist: {}
     },
@@ -50,7 +69,8 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      files: [],
+      app: ['www/js/*.js','www/js/views/*.js','www/js/models/*.js','www/js/routers/*.js'],
+      test: ['www/js/tests/backbone/*.js','www/js/models/*.js'],
       options: {
         curly: false,
         immed: true,
@@ -63,6 +83,9 @@ module.exports = function(grunt) {
         devel: true,
         eqnull: true,
         browser: false,
+        "-W099": true,
+        "-W030":true,
+        "-W020":true,
         globals: {
 		cordova: true,
 		jQuery: true,
@@ -83,6 +106,12 @@ module.exports = function(grunt) {
 		files: [
 			{expand: true, flatten:true, src:['config/config_debug.js'],dest:'www/js'}
 		]
+	},
+	'test-libs': {
+		files:[ 
+			{expand: true, flatten:true, src:['node_modules/mocha/mocha.css','node_modules/mocha/mocha.js'], dest:'www/js/tests/lib'},
+			{expand:true, flatten:true, src: ['node_modules/chai/*'], dest:'www/js/tests/lib/chai'}
+		]
 	}
     },
 
@@ -99,37 +128,42 @@ module.exports = function(grunt) {
     }
 });
 
-  grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-copy'); 
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-rename'); 
+	grunt.loadNpmTasks('grunt-shell');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-copy'); 
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-rename'); 
+	grunt.loadNpmTasks('grunt-mocha-phantomjs');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 
-  // Custom tasks
-  grunt.registerTask('min', ['uglify']); // polyfil for uglify
-  grunt.registerTask('debug','Create a debug build', function(platform) {
-    grunt.task.run('jshint','concat','min');
-    grunt.task.run('shell:debug_' + platform);
-  });
+	// Custom tasks
+	grunt.registerTask('min', ['uglify']); // polyfil for uglify
+	grunt.registerTask('debug','Create a debug build', function(platform) {
+		grunt.task.run('jshint','concat','min');
+		grunt.task.run('shell:debug_' + platform);
+	});
 
-  grunt.registerTask('debug_device','Create a debug build and run on device', function(platform) {
-    grunt.task.run('jshint');
-    grunt.task.run('copy:debug');
-    grunt.task.run('rename:debug');
-    grunt.task.run('shell:clear_logcat_android');
-    grunt.task.run('shell:debug_' + platform + "_device");
-  });
+	grunt.registerTask('debug_device','Create a debug build and run on device', function(platform) {
+		grunt.task.run('jshint');
+		grunt.task.run('copy:debug');
+		grunt.task.run('rename:debug');
+		grunt.task.run('shell:clear_logcat_android');
+		grunt.task.run('shell:debug_' + platform + "_device");
+	});
 
-  grunt.registerTask('release_device','Create a release buid and run it on the device', function(platform) {
-	grunt.task.run('jshint');
-	grunt.task.run('copy:release');
-	grunt.task.run('rename:release');
-	grunt.task.run('shell:clear_logcat_android');
+	grunt.registerTask('release_device','Create a release buid and run it on the device', function(platform) {
+		grunt.task.run('jshint:app');
+		grunt.task.run('copy:release');
+		grunt.task.run('rename:release');
+		grunt.task.run('test:models');
+		grunt.task.run('shell:clear_logcat_android');
 
-	grunt.task.run('shell:debug_' + platform + "_device");
-  });
+		grunt.task.run('shell:debug_' + platform + "_device");
+	});
+	
+	grunt.registerTask('test:models', ['jshint:app','copy:test-libs','connect', 'mocha_phantomjs']);
 
 
 
