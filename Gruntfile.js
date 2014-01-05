@@ -36,7 +36,15 @@ module.exports = function(grunt) {
         }
       }
     },
-    
+  remove: {
+  'test-libs':{
+    options: {
+      trace: false
+    },
+    fileList: ['www/js/tests/lib/mocha.css','www/js/tests/lib/mocha.js'],
+    dirList: ['www/js/tests/lib/chai']
+  }
+  },
     uglify: {
       dist: {}
     },
@@ -137,7 +145,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-rename'); 
 	grunt.loadNpmTasks('grunt-mocha-phantomjs');
 	grunt.loadNpmTasks('grunt-contrib-connect');
-
+	grunt.loadNpmTasks('grunt-remove');
+	
 	// Custom tasks
 	grunt.registerTask('min', ['uglify']); // polyfil for uglify
 	grunt.registerTask('debug','Create a debug build', function(platform) {
@@ -149,6 +158,7 @@ module.exports = function(grunt) {
 		grunt.task.run('jshint');
 		grunt.task.run('copy:debug');
 		grunt.task.run('rename:debug');
+		grunt.task.run('test:models');
 		grunt.task.run('shell:clear_logcat_android');
 		grunt.task.run('shell:debug_' + platform + "_device");
 	});
@@ -163,7 +173,7 @@ module.exports = function(grunt) {
 		grunt.task.run('shell:debug_' + platform + "_device");
 	});
 	
-	grunt.registerTask('test:models', ['jshint:app','copy:test-libs','connect', 'mocha_phantomjs']);
+	grunt.registerTask('test:models', ['jshint:app','copy:test-libs','connect', 'mocha_phantomjs','remove:test-libs']);
 
 
 

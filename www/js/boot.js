@@ -10,7 +10,8 @@ require.config({
     jqm:"lib/jquery-ui-mobile/jquery.mobile-1.4.0",
     fastclick: 'lib/fastclick/fastclick.min',
     'fb-connect': 'lib/facebook/cdv-plugin-fb-connect',
-    'facebook-js-sdk':'lib/facebook/facebook-js-sdk'
+    'facebook-js-sdk':'lib/facebook/facebook-js-sdk',
+    waitForImages: 'lib/jquery/plugins/waitForImages'
   },
 
   shim: {
@@ -18,7 +19,9 @@ require.config({
 		deps:['jQuery'],
 		exports:'_'
 	},
-
+	'waitForImages': {
+		deps:['jQuery']
+	},
 	'jquery-jsonp': {
 		deps: ['jQuery']
 	},
@@ -42,11 +45,13 @@ require.config({
   }
 });
 
-define(['jqm','domReady','Backbone','BackboneRelational','routers/AppRouter','fb-connect','facebook-js-sdk','api'], 
-function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_sdk,api) {
+define(['jqm','domReady','Backbone','BackboneRelational','routers/AppRouter','fb-connect','facebook-js-sdk','models/api','models/globals',
+        'waitForImages'], 
+function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_sdk,api,globals,waitForImages) {
 	
 		// domReady is RequireJS plugin that triggers when DOM is ready
 		console.log("Before DomReady");
+		Backbone.Relational.store.addModelScope(globals);
 		domReady(function () {
 
 			function onDeviceReady(desktop) {
@@ -92,7 +97,7 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 
 				// Disabling this will prevent jQuery Mobile from handling hash changes
 				$.mobile.hashListeningEnabled = false;
-				$.mobile.defaultPageTransition = 'slide';
+				$.mobile.defaultPageTransition = 'fade';
 				$.mobile.ajaxEnabled = false;
 				$.mobile.pushStateEnabled = false;
 

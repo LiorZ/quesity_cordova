@@ -1,4 +1,4 @@
-define(['chai','models/Game','models/Quest','models/globals'],function(chai,Game,Quest,consts) {
+define(['Backbone','chai','models/Game','models/Quest','models/globals'],function(Backbone,chai,Game,Quest,consts) {
 
   var assert = chai.assert;
   var expect = chai.expect;
@@ -39,13 +39,20 @@ define(['chai','models/Game','models/Quest','models/globals'],function(chai,Game
 			  },
 			  silent:true
 		  });
+		  globals.TempModel = Backbone.Model.extend({});
 	  });
 	  describe("Checking page transitions" , function() {
 	      it("Creation of Game", function(done) {
 	    	 var first_page = globals.game.get_first_page();
 	    	 assert.ok(first_page);
 	    	 assert.equal(first_page.get('page_number'),1);
-	    	 done();
+	    	 var temp_model = new globals.TempModel();
+	    	 assert.ok(temp_model)
+	    	 temp_model.listenTo(globals.game,"game:next_page:static",function() {
+	    		 done();
+	    		 temp_model.destroy();
+	    	 });
+	    	 globals.game.invoke_next_page();
 	      });
 	      
 	      it("Checking first page - static page", function(done) {

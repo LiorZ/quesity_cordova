@@ -1,5 +1,6 @@
-define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestView','views/LoginView','config', 'models/Quest','views/QuestPropertiesView'], 
-	function(Backbone,HomeView, QuestCollection,FindQuestView,LoginView,config, Quest,QuestPropertiesView) {
+define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestView','views/LoginView','config', 'models/Quest','views/QuestPropertiesView',
+        'models/Game', 'views/GamePageView'], 
+	function(Backbone,HomeView, QuestCollection,FindQuestView,LoginView,config, Quest,QuestPropertiesView,Game,GamePageView) {
 		var AppRouter = Backbone.Router.extend({
 			current_page: undefined,
 			initialize: function() {
@@ -9,7 +10,31 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 				"home":"show_home", 
 				"find_quests":"show_find_quests",
 				"login": "show_login_view",
-				"quest/:quest_id/details" : "show_quest_details"
+				"quest/:quest_id/details" : "show_quest_details",
+				"quest/:quest_id/start": "start_quest"
+			},
+			
+			start_quest:function(quest_id) {
+				var quest = Quest.findOrCreate({_id:quest_id},{create:false});
+				if ( !quest ) {
+					//TODO: handle error...
+					return;
+				}
+				$.mobile.loading("show");
+				var context = this;
+				quest.get('pages').fetch({
+					success: function() {
+						$.mobile.loading("hide");
+						var game = new Game({quest:quest});
+						context.change_page(new GamePageView({model:game}));
+					},
+					error: function() {
+						$.mobile.loading("hide");
+						//TODO: Handle error..
+					},
+					silent: true
+				});
+				
 			},
 			
 			show_quest_details: function(quest_id) {
@@ -59,6 +84,7 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 			change_page: function(page) {
 				var jq_obj = page.render();
 				$('body').append(jq_obj);
+				page.delegateEvents();
 				$('body').trigger('create');
 				console.log("Change page " + window.location);
 				$.mobile.changePage(jq_obj, { changeHash: true } );

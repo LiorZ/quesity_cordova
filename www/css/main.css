@@ -73,6 +73,7 @@
 	height: 94.5%;
 	overflow-y: scroll;
 	overflow-x: hidden;
+	background: white;
 }
 #game_button_container button {
 	display:inline;
