@@ -16,6 +16,7 @@ function(Backbone, QuestListItemView,list_template) {
 				obj.appendTo(list);
 			});
 			this.$el = list;
+			this.$el.addClass('page-theme');
 			return this.$el;
 		}
 	

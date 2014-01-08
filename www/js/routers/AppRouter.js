@@ -85,7 +85,7 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 				var jq_obj = page.render();
 				$('body').append(jq_obj);
 				page.delegateEvents();
-				$('body').trigger('create');
+				jq_obj.trigger('create');
 				console.log("Change page " + window.location);
 				$.mobile.changePage(jq_obj, { changeHash: true } );
 			}

@@ -107,7 +107,7 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 				Backbone.history.start();
 //				app_router.navigate("login", { trigger:true});
 				FB.Event.subscribe('auth.statusChange', handleStatusChange);
-				FB.getLoginStatus(handleStatusChange);
+				FB.getLoginStatus(handleStatusChange,true);
 
 			}
 

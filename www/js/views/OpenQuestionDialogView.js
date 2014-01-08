@@ -8,8 +8,11 @@ function(Backbone,page_html) {
 		},
 		render: function() {
 			var page_obj = $(page_html);
-			$('body').append(page_obj);
 			this.$el = page_obj;
+			return this.$el;
+
+		},
+		open_dialog: function() {
 			this.delegateEvents();
 			this.$el.popup();
 			this.$el.trigger('create');

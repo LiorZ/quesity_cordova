@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
+       <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="width=device-width, user-scalable=no height=device-height, target-densitydpi=device-dpi"  />
+        <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
         <link rel="stylesheet" type="text/css" href="css/main.css" />
-	<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.0.min.css" />
-
-        <!-- <script type="text/javascript" src="cordova.js"></script> -->
- 
-	<script type="text/javascript" src="js/lib/require/require.js" data-main='js/boot.js'></script>
+	<!-- <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.0.min.css" /> -->
+	  <link rel="stylesheet" href="css/Quesity.css" />
+  		<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+  <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
 
 	<title>Quesity</title>
     </head>
     <body>
-
+    <div data-role="page">
+	<div id="find_quest_header" data-role="header">
+		<table style="border: 1px solid black; width:100%;">
+			<tr>
+				<td style="text-align: right;">
+					<img src="css/images/icons-png/search.png" />
+				</td>
+				<td style="text-align: center;">
+					<h1>Find Quest</h1>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="find_quest_content" data-role="content">
+		<ul data-role="listview">
+			<li>First Quest</li>
+			<li>Second Quest</li>
+		</ul>
+	</div>
+	</div>
    </body>
 </html>

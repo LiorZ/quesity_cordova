@@ -1,4 +1,5 @@
-define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuestionDialogView'],function(JQPageView,template,OpenQuestionDialogView) {
+define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuestionDialogView',
+        'views/MultipleOptionView'],function(JQPageView,template,OpenQuestionDialogView,MultipleOptionView) {
 	
 		var GamePageView = JQPageView.extend({
 			events: {
@@ -11,6 +12,7 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				this.listenTo(this.model,'game:wrong_answer:location',this.show_wrong_location);
 				this.listenTo(this.model,'game:next_page:open_question',this.show_open_question_dialog);
 				this.listenTo(this.model,'game:wrong_answer:open_question',this.show_wrong_open_answer);
+				this.listenTo(this.model,'game:next_page:question',this.next_page_question);
 			},
 			render: function() {
 				var game = this.model;
@@ -88,11 +90,18 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 			
 			show_open_question_dialog: function() {
 				var dialog = new OpenQuestionDialogView({model:this.model});
-				dialog.render();
+				this.$el.append(dialog.render());
+				dialog.open_dialog();
 			},
 			show_wrong_open_answer: function() {
 				alert("Wrong ... Please try again"); //#il18 #redesign
+			},
+			next_page_question: function() {
+				var dialog = new MultipleOptionView({model:this.model});
+				this.$el.append(dialog.render());
+				dialog.open_dialog();
 			}
+			
 			
 		});
 		

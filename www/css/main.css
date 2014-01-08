@@ -1,4 +1,4 @@
-.ui-page-theme-a {
+.page-theme {
 	background: rgba(74,150,225,1) no-repeat fixed !important;
 	background: -moz-linear-gradient(top, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) no-repeat fixed !important;
 	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(74,150,225,1)), color-stop(73%, rgba(245,241,158,1)), color-stop(100%, rgba(245,241,158,1))) no-repeat fixed !important;
@@ -8,18 +8,38 @@
 	background: linear-gradient(to bottom, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) no-repeat fixed !important;
 
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a96e1', endColorstr='#f5f19e', GradientType=0 );
-	height:100%
+}
+
+.ui-page-theme-a{
+	height:100%	
+}
+.ui-header{
+	background-color:#61A2BE !important;
+	text-shadow: none !important;
+	border: 0px !important;
+	font-size:1.3em;
+	border-bottom: 1px solid #103E41 !important;
+}
+
+.ui-content {
+	font-size: 1.5em !important;
+	background-color: #c9d9dc !important;‬‬
 }
 
 .main-menu-btn {
-	font-size:2em !important;
-	height:10%;
+	font-size:2.3em !important;
+	height:8% !important;
 	margin-bottom:4% !important;
 }
 
 #menu_buttons {
 	padding-left:10%;
 	padding-right:10%;
+}
+
+.main-menu-btn:focus,
+.main-menu-btn:active {
+	border:0px !important;
 }
 
 #facebook_login_div { 
@@ -40,7 +60,7 @@
 #logo_div {
 	background: url(../img/logo.png) no-repeat center;
 	background-size: contain;
-	height: 25%;
+	height: 21%;
 	margin-right: 5%;
 	display: block;
 	margin-left: 5%;
@@ -80,3 +100,36 @@
 	width:32.5%;
 	margin:0px;
 }
+
+
+
+/* ICONS: */
+.ui-icon-quesity-search,
+.ui-icon-quesity-my_quests,
+.ui-icon-quesity-about,
+.quesity-icons {
+	background-size: 2em !important;
+    background-position-x:8% !important;
+    background-position-y:center !important;
+    background-repeat: no-repeat !important;
+    box-shadow: none !important;
+}
+.ui-icon-quesity-search {
+    background-image: url("images/icons-png/search.png") !important;
+}
+.ui-icon-quesity-search:after,
+.ui-icon-quesity-my_quests:after,
+.ui-icon-quesity-about:after,
+.quesity-icons:after {
+	background-color: transparent !important;
+}
+.ui-icon-quesity-my_quests {
+    background-image: url("images/icons-png/favorites.png") !important;
+    background-size: 1.1em !important;
+}
+.ui-icon-quesity-about {
+    background-image: url("images/icons-png/about.png") !important;
+    background-position-x:7% !important;
+}
+
+
