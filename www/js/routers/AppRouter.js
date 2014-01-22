@@ -25,8 +25,12 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 				quest.get('pages').fetch({
 					success: function() {
 						$.mobile.loading("hide");
-						var game = new Game({quest:quest});
-						context.change_page(new GamePageView({model:game}));
+						var game = new Game();
+						game.set_quest(quest);
+						game_view = new GamePageView({model:game});
+						context.change_page(game_view);
+						game_view.refresh();
+						
 					},
 					error: function() {
 						$.mobile.loading("hide");
@@ -41,8 +45,9 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 				console.log("Changing to quest with id " + quest_id);
 				var model = Quest.findOrCreate({_id:quest_id},{create:false});
 				if ( ! _.isUndefined(model) && !_.isNull(model) ){
-					console.log(JSON.stringify(model));
-					this.change_page(new QuestPropertiesView({model:model}));
+					var quest_page = new QuestPropertiesView({model:model});
+					this.change_page(quest_page);
+					quest_page.refresh();
 				}else{
 					alert("Error displaying quest, please try to logout and retry");
 				}
@@ -64,6 +69,7 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 						$.mobile.loading("hide");
 						var view = new FindQuestView({model: test_collection});
 						context.change_page(view);
+						view.refresh();
 					},
 					error: function(collection,response) {
 						$.mobile.loading("hide");
@@ -84,8 +90,12 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 			change_page: function(page) {
 				var jq_obj = page.render();
 				$('body').append(jq_obj);
+				if ( this.current_page )
+					this.current_page.html('');
+				
+				this.current_page = jq_obj;
 				page.delegateEvents();
-				jq_obj.trigger('create');
+				$('body').trigger('create');
 				console.log("Change page " + window.location);
 				$.mobile.changePage(jq_obj, { changeHash: true } );
 			}

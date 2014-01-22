@@ -1,4 +1,4 @@
-.page-theme {
+.body-background{
 	background: rgba(74,150,225,1) no-repeat fixed !important;
 	background: -moz-linear-gradient(top, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) no-repeat fixed !important;
 	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(74,150,225,1)), color-stop(73%, rgba(245,241,158,1)), color-stop(100%, rgba(245,241,158,1))) no-repeat fixed !important;
@@ -8,10 +8,125 @@
 	background: linear-gradient(to bottom, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) no-repeat fixed !important;
 
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a96e1', endColorstr='#f5f19e', GradientType=0 );
+	overflow-x: hidden;
+	width:100% !important;
 }
 
+.find-quest-content {
+	background: rgba(74,150,225,0) no-repeat fixed !important;
+}
+.ui-page-theme-a {
+	background: rgba(74,150,225,0) no-repeat fixed !important;
+}
+body,
+.ui-page {
+	background: rgba(74,150,225,1) no-repeat fixed !important;
+	background: -moz-linear-gradient(top, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) no-repeat fixed !important;
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(74,150,225,1)), to(rgba(245,241,158,1))) no-repeat fixed !important;;
+	background: -webkit-linear-gradient(top, rgba(74,150,225,1), rgba(245,241,158,1)) no-repeat fixed !important;
+	
+	background: -o-linear-gradient(top, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) no-repeat fixed !important;
+	background: -ms-linear-gradient(top, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) !important;
+	background: linear-gradient(to bottom, rgba(74,150,225,1) 0%, rgba(245,241,158,1) 73%, rgba(245,241,158,1) 100%) no-repeat fixed !important;
+	-webkit-backface-visibility: hidden !important; /*should fix flickering */
+}
 .ui-page-theme-a{
 	height:100%	
+}
+/* Headers in quest details page */
+.ui-collapsible-heading, .ui-collapsible-heading>.ui-btn {
+	font-family: 'Roboto' !important;
+	font-weight: 400;
+	background-color: rgba(201, 217, 220, 0.4) !important;
+	font-size:x-large !important;
+}
+.ui-collapsible > h4 > a > img {
+	height: 1em;
+	margin-right:0.5em;
+}
+.ui-collapsible-themed-content .ui-collapsible-content {
+	background-color: rgba(50,50,50,0) !important;
+	font-family: "Roboto" !important;
+	font-weight:300;
+	font-size:large;
+}
+.ui-btn-icon-right:after {
+	margin-right:2em;
+}
+/* makes images circular /*/
+.circular {
+	width: 100px;
+	height: 100px;
+	border-radius: 50px !important;
+	-webkit-border-radius: 50px !important;
+	-moz-border-radius: 50px !important;
+	max-height: 100px !important;
+	max-width: 100px !important;
+	margin-top: 1em !important;
+	margin-left: 1em !important;
+	margin-right: 1em !important;
+}
+.rating-stars {
+	width: 1.3em;
+}
+.ui-header img {
+	vertical-align:middle;
+	margin-bottom:0.5em;
+}
+.ui-header h2,
+.ui-header h1 {
+	font-family:'Andada' !important;
+	font-size: 2em !important;
+}
+.ui-header h2 {
+	font-size: 1.5em !important;
+}
+
+li.ui-li-has-thumb {
+}
+
+li.ui-li-has-thumb>a.ui-btn {
+	border:0px !important;
+}
+
+li:nth-child(odd).ui-li-has-thumb>a.ui-btn {
+	background-color: rgba(201, 217, 220) !important;
+	background-color: rgba(201, 217, 220, 0.4) !important;
+}
+li:nth-child(even).ui-li-has-thumb>a.ui-btn {
+	background-color: rgba(169, 199, 203) !important;
+	background-color: rgba(169, 199, 203, 0.4) !important;
+}
+
+.ui-listview>li h2{
+	font-family: "Roboto" !important;
+	font-weight:400;
+	font-size: x-large !important;
+}
+
+li.ui-li-has-thumb>a.ui-btn>p {
+	font-family: "Roboto" !important;
+	font-weight:400;
+	font-size:large !important;
+}
+.ui-listview>li p {
+	font-size:large !important;
+}
+
+#quest-data {
+	width:85%;
+	border-spacing:0;
+}
+#quest-data>tr>td,
+#quest-data>tbody>tr>td{
+	font-family: "Roboto" !important;
+	font-weight:400;
+	text-align: center;
+	font-size: large !important;
+	border-left: 1px solid #103e41;
+}
+#quest-data>tbody>tr>td:first-child{
+	border-left: 0;
 }
 .ui-header{
 	background-color:#61A2BE !important;
@@ -21,9 +136,9 @@
 	border-bottom: 1px solid #103E41 !important;
 }
 
+
 .ui-content {
 	font-size: 1.5em !important;
-	background-color: #c9d9dc !important;‬‬
 }
 
 .main-menu-btn {
@@ -37,11 +152,51 @@
 	padding-right:10%;
 }
 
+#btn_play {
+	margin:1em;
+	margin-top:2em;
+	font-size:1em;
+	font-family:"Roboto" !important
+	font-weight:300;
+}
+
+#btn_play:focus,
+#btn_play:active,
 .main-menu-btn:focus,
 .main-menu-btn:active {
 	border:0px !important;
 }
 
+.quest-tag-wrapper {
+	margin-left: 0.3em;
+	line-height:2em;
+	display:inline-block;
+}
+.quest-tag-wrapper img {
+	height:1.5em;
+	vertical-align: middle;
+}
+.quest-tag {
+	background-color: #d35400;
+	color: #f4f4df;
+	padding:0.2em;
+	padding-right:0.4em;
+	padding-top:0.17em;
+	padding-bottom:0.34em;
+	font-family: "Roboto" !important;
+	font-weight:300;
+	font-size:small;
+}
+.ui-collapsible {
+	margin-left:0px !important;
+}
+#inner-page-quest-data{
+	margin-left:1em;
+	font-family: "Roboto" !important;
+	font-weight:300;
+	font-size:medium;
+	margin-bottom:1em;
+}
 #facebook_login_div { 
 	position:relative;
 	top:-5%;
@@ -72,9 +227,6 @@
 	height: 25%;
 	display: block;
 }
-#game_container {
-	height: 100%;
-}
 #buildings_div {
 	width: 100%;
 	background: url(../img/buildings.png) no-repeat bottom;
@@ -84,9 +236,45 @@
 	position: absolute;
 	bottom: 0%;
 }
+
+#game_footer {
+	background-color: #61A2BE;
+	position:fixed !important; 
+	bottom:0px;
+	top:auto;
+	width:100%;
+}
+
 #game_button_container {
 	width:100%;
+	border-top:2px solid #103E41;
 	text-align:center;
+	padding:0px;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+#game_button_container a {
+	margin:0px;
+	border-radius: 0px;
+	border:0px;
+	float:left;
+	width:27.6%; 
+	border-right:2px solid #103E41;
+	font-family: "Roboto" !important;
+	font-weight:400;
+}
+
+#game_button_container a:last-child {
+	border-right-width: 0px;
+}
+#game_button_container a>table {
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#game_button_container a img {
+	height: 2em;
 }
 
 #page_container {
@@ -95,13 +283,15 @@
 	overflow-x: hidden;
 	background: white;
 }
-#game_button_container button {
-	display:inline;
-	width:32.5%;
-	margin:0px;
+
+#hint_collapsibles {
+	min-width: 400px;
 }
 
-
+.ui-header .ui-title {
+    margin-right: 10% !important;
+    margin-left: 10% !important;
+}
 
 /* ICONS: */
 .ui-icon-quesity-search,
@@ -120,6 +310,7 @@
 .ui-icon-quesity-search:after,
 .ui-icon-quesity-my_quests:after,
 .ui-icon-quesity-about:after,
+.ui-icon-quesity-book-empty:after,
 .quesity-icons:after {
 	background-color: transparent !important;
 }
@@ -132,4 +323,32 @@
     background-position-x:7% !important;
 }
 
+.ui-icon-quesity-book-empty {
+	background-image: url("images/icons-png/book-empty.png") !important;
+    background-position-y:center !important;
+    background-repeat: no-repeat !important;
+	background-size: 1.3em !important;
+}
 
+/* SwipeJS Styles */
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+  margin-bottom:1em;
+  height:12em !important;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div {
+  float:left;
+  width:100%;
+  overflow:hidden;
+  position: relative;
+}
+
+.swipe-wrap img {
+	width:100%;
+}

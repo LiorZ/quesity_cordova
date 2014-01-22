@@ -7,7 +7,9 @@ define(['Backbone','text!templates/login_page.html','views/JQPageView','models/a
 			render: function() {
 				var jq_obj = this.format_template(home_template);
 				this.$el.append(jq_obj);
-				this.$el.addClass('page-theme');
+//				if ( ! $('body').hasClass('body-background') ){
+//					$('body').addClass('body-background');
+//				}
 				this.delegateEvents();
 				console.log("Returning LoginView");
 				console.log(this.$el.html());

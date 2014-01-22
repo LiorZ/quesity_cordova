@@ -8,7 +8,7 @@ define(['Backbone','chai','models/Game','models/Quest','models/globals'],functio
   
   describe('Testing Game model', function() {
 	  before(function(done) {
-		globals.game = new Game({remaining_hints:2});
+		globals.game = new Game();
 		globals.quest = new Quest();
 		globals.quest.url = "/js/tests/jsons/mock_quest.json";
 		globals.quest.fetch({
@@ -18,7 +18,7 @@ define(['Backbone','chai','models/Game','models/Quest','models/globals'],functio
 			},
 			success:function() {
 				assert.ok(globals.quest.get('title'));
-				globals.game.set('quest',globals.quest);
+				globals.game.set_quest(globals.quest);
 				done();
 			}
 		}		

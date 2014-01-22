@@ -11,13 +11,25 @@ require.config({
     fastclick: 'lib/fastclick/fastclick.min',
     'fb-connect': 'lib/facebook/cdv-plugin-fb-connect',
     'facebook-js-sdk':'lib/facebook/facebook-js-sdk',
-    waitForImages: 'lib/jquery/plugins/waitForImages'
+    waitForImages: 'lib/jquery/plugins/waitForImages',
+    swipe:'lib/swipejs/swipe',
+    iscroll:'lib/iscroll-4.2/iscroll-lite',
+    'jqm-iscroll':'lib/jquery-mobile-iscrollview-1.3.6/jquery.mobile.iscrollview'
   },
 
   shim: {
 	'Underscore': {
 		deps:['jQuery'],
 		exports:'_'
+	},
+	iscroll:{
+		deps:['jQuery']
+	},
+	'jqm-iscroll': {
+		deps:['jqm','iscroll']
+	},
+	swipe: {
+		deps: ['jQuery']
 	},
 	'waitForImages': {
 		deps:['jQuery']
@@ -46,8 +58,8 @@ require.config({
 });
 
 define(['jqm','domReady','Backbone','BackboneRelational','routers/AppRouter','fb-connect','facebook-js-sdk','models/api','models/globals',
-        'waitForImages'], 
-function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_sdk,api,globals,waitForImages) {
+        'waitForImages','iscroll','jqm-iscroll'], 
+function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_sdk,api,globals,waitForImages,iscroll,jqm_iscroll) {
 	
 		// domReady is RequireJS plugin that triggers when DOM is ready
 		console.log("Before DomReady");
@@ -56,6 +68,9 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 
 			function onDeviceReady(desktop) {
 				console.log("Entered onDeviceReady");
+				
+			    //Fixing the content-height issue:
+				
 				if ( !desktop )
 					navigator.splashscreen.hide();
 				
@@ -64,6 +79,7 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 					nativeInterface: CDV.FB,
 					useCachedDialogs: false
 				});
+				
 				
 				var handleStatusChange = function(response) {
 					  if (response.status == "connected" ) {

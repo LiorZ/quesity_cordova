@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no height=device-height, target-densitydpi=device-dpi"  />
+        <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.0.min.css" /> -->
+	  <link rel="stylesheet" href="css/Quesity.css" />
+  		<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+  <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+	<script type="text/javascript">
+	
+	$(document).ready(function() {
+		$('#test_list').load('testing_list_items.html',function() {
+			$('#test_list').listview('refresh')
+			$('body').trigger('create');
+		});
+	});
+	</script>
+	<title>Quesity</title>
+    </head>
+    <body>
+    <div id='bg_div' style="position:fixed; top:0; left:0; width:100%; height:100%; background-color: red; background-size:contain;"></div>
+
+    <div data-role="page" class="find-quest-content">
+	<div id="find_quest_header" data-role="header" data-position='fixed' >
+		<table style="border: 1px solid black; width:100%;">
+			<tr>
+				<td style="text-align: right; width:35%;">
+					<img src="css/images/icons-png/search.png" style="width: 3em;"/>
+				</td>
+				<td style="text-align: left; padding-left:1em;">
+					<h1>Find Quest</h1>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="find_quest_content" data-role="content" style="padding: 0px;"  class="find-quest-content">
+		<ul data-role="listview" data-inset="true" id="test_list" style="margin: 0px;"  data-split-icon="quesity-book-empty" data-split-theme="a">
+
+		</ul>
+	</div>
+	</div>
+   </body>
+</html>

@@ -1,5 +1,6 @@
 {
 	"_id": "524a88a00465ddf939000003",
 	"title":"This is a test quest",
-	"description":"Mock Quest"
+	"description":"Mock Quest",
+	"allowed_hints":2
 }

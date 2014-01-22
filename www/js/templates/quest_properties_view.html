@@ -1,12 +1,70 @@
-<script type="text/template">
-	<h1><%= title %> </h1>
-	
-	<p>
-		<%= description %>
-	</p>
-	
-	<div style="margin-left:auto; margin-right:auto;">
-		<a id="btn_start_quest" rel="external" href="#quest/<%=_id %>/start" class='main-menu-btn ui-btn'>Start Playing</a>
+	<div id="find_quest_header" data-role="header"  data-position="fixed">
+	<div id="header_container" style="width:100%; text-align: center;">
+		<h2><%= title %></h2>
 	</div>
-	
-</script>
+	</div>
+	<div id="find_quest_content" data-role="content" style="padding: 0px;" class='find-quest-content' data-iscroll>
+		<div id='slider' class='swipe'>
+		  <div class='swipe-wrap' style="text-align: center;">
+		  	<%
+		  	if (images && images.length > 0) {
+		  		for (var i=0; i<images.length; ++i){
+		  	%>
+		
+		    <div><img src="<%= images[i] %>" style="width:100%;"/></div>
+		    <% }
+		    } else {%>
+		    <div><img src="img/no_image_found.jpg" style="width:100%;"/></div>
+			<%}%>
+		  </div>
+		</div>    	
+		<table id="inner-page-quest-data">
+			<tr>
+				<td style="width: 45%;">
+					<img src="img/star-full.png" class="rating-stars"/>
+	 				<img src="img/star-full.png" class="rating-stars"/>
+	 				<img src="img/star-full.png" class="rating-stars"/>
+	 				<img src="img/star-full.png" class="rating-stars"/>(5.6)
+				</td>
+				<td rowspan="3">
+					<% if (tags && tags.length > 0) { 
+						for(var i=0; i<tags.length; ++i) {
+					%>
+					
+					<span class='quest-tag-wrapper'><img src="img/tag-left.png"/><span class="quest-tag">
+						<%= tags[i] %>
+					</span></span>
+					<% } 
+					   } %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					2.5h/8Km
+				</td>
+			</tr>
+			<tr>
+				<td>
+					1233 Played
+				</td>
+			</tr>
+		</table>
+
+		<div id="collapsibles">
+		<div data-role="collapsible" data-inset="false" data-iconpos="right">
+			<h4><img src="img/start-point.png"/> Starting Point</h4>
+			<p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+		</div>
+		<div data-role="collapsible" data-inset="false" data-iconpos="right">
+			<h4> <img src="img/desc.png"/>Description</h4>
+			<p><%= description %></p>
+		</div>
+		<div data-role="collapsible" data-inset="false" data-iconpos="right">
+			<h4><img src="img/reviews.png"/> Reviews</h4>
+			<p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+		</div>
+		</div>
+		
+		<a href="#quest/<%= _id %>/start" data-role="button" id="btn_play">Play</a>
+
+	</div>

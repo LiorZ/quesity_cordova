@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no height=device-height, target-densitydpi=device-dpi"  />
+        <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.0.min.css" /> -->
+	  <link rel="stylesheet" href="css/Quesity.css" />
+  		<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+  <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.0.min.css" />
+  <link rel="stylesheet" href="js/lib/swipejs/style.css"/>
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+		<script src="js/lib/swipejs/swipe.js"></script>
+		
+		<script type="text/javascript">
+			$(document).on("pageshow",function() {
+				window.mySwipe = $('#slider').Swipe({continuous: true,auto: 3000,}).data('Swipe');
+				
+			});
+		</script>
+	<title>Quesity</title>
+    </head>
+    <body>
+   <div data-role="page" class="page-theme">
+	<div id="find_quest_header" data-role="header"  data-position="fixed">
+	<h3>The adventures of Tel Aviv</h3>
+	</div>
+	<div id="find_quest_content" data-role="content" style="padding: 0px;" class='quest-page-inner-content'>
+		<div id='slider' class='swipe'>
+		  <div class='swipe-wrap' style="text-align: center;">
+		    <div><img src="http://www.mugraby-hostel.com/wp-content/uploads/2010/01/Telaviv-City-Beach.jpg" style="width:100%;"/></div>
+		    <div><img src="http://www.betakit.com/wp-content/uploads/2013/12/tel-aviv.jpg" style="width:100%;"/></div>
+		    <div><img src="http://go.bloomberg.com/tech-deals/files/2012/11/blog_telaviv.jpg" style="width:100%;"/></div>
+		  </div>
+		</div>
+		<table id="inner-page-quest-data">
+			<tr>
+				<td style="width: 45%;">
+					<img src="img/star-full.png" class="rating-stars"/>
+	 				<img src="img/star-full.png" class="rating-stars"/>
+	 				<img src="img/star-full.png" class="rating-stars"/>
+	 				<img src="img/star-full.png" class="rating-stars"/>(5.6)
+				</td>
+				<td rowspan="3">
+					<span class='quest-tag-wrapper'><img src="img/tag-left.png"/><span class="quest-tag">Tel_Aviv</span></span>
+					<span class='quest-tag-wrapper'><img src="img/tag-left.png"/><span class="quest-tag">Rothschild</span></span>
+					<span class='quest-tag-wrapper'><img src="img/tag-left.png"/><span class="quest-tag">Googi</span></span>
+					<span class='quest-tag-wrapper'><img src="img/tag-left.png"/><span class="quest-tag">Tel_Aviv</span></span>
+					<span class='quest-tag-wrapper'><img src="img/tag-left.png"/><span class="quest-tag">Rothschild</span></span>
+					<span class='quest-tag-wrapper'><img src="img/tag-left.png"/><span class="quest-tag">Googi</span></span>
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					2.5h/8Km
+				</td>
+			</tr>
+			<tr>
+				<td>
+					1233 Played
+				</td>
+			</tr>
+		</table>
+
+		<div id="collapsibles">
+		<div data-role="collapsible" data-inset="false" data-iconpos="right">
+			<h4><img src="img/start-point.png"/> Starting Point</h4>
+			<p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+		</div>
+		<div data-role="collapsible" data-inset="false" data-iconpos="right">
+			<h4> <img src="img/desc.png"/>Description</h4>
+			<p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+		</div>
+		<div data-role="collapsible" data-inset="false" data-iconpos="right">
+			<h4><img src="img/reviews.png"/> Reviews</h4>
+			<p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+		</div>
+		</div>
+		<a href="#" data-role="button">Play</a>
+	</div>
+	</div>
+   </body>
+</html>

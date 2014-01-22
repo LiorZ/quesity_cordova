@@ -1,12 +1,26 @@
-<script type="text/template">
-    	<div id="game_container">
-		<div id="page_container">
+		<div id="page_container" data-iscroll>
 			<%= page_content %>
 		</div>			
-		<div id="game_button_container">
-			<button id="btn_game_menu" data-role="button">Menu</button>
-			<button id="btn_game_continue" data-role="button">Continue</button>
-			<button id="btn_game_tactics" data-role="button">Tactics</button>
+		<div data-role="footer" id="game_footer">
+			<div id="game_button_container" >
+			<a id="btn_game_menu" data-role="button">
+				<table>
+					<tr><td><img src='img/menu.png'/></td></tr>
+					<tr><td>Menu</td></tr>
+				</table>
+				
+			</a>
+			<a id="btn_game_continue" data-role="button">
+				<table>
+					<tr><td><img src='img/continue.png'/></td></tr>
+					<tr><td>Continue</td></tr>
+				</table>
+				</a>
+			<a id="btn_game_tactics" data-role="button">
+				<table>
+					<tr><td><img src='img/tactics.png'/></td></tr>
+					<tr><td>Tactics</td></tr>
+				</table>
+			</a>
+		   </div>
 		</div>
-		</div>
-</script>

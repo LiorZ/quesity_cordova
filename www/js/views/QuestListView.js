@@ -5,9 +5,7 @@ function(Backbone, QuestListItemView,list_template) {
 
 		render:function() {
 			var collection = this.model;
-			var text = $(list_template).html().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-			var list = $(text);
-
+			var list = $(list_template);
 			collection.each(function(quest) {
 				var item_view = new QuestListItemView({model:quest});
 
@@ -16,8 +14,10 @@ function(Backbone, QuestListItemView,list_template) {
 				obj.appendTo(list);
 			});
 			this.$el = list;
-			this.$el.addClass('page-theme');
 			return this.$el;
+		},
+		refresh:function() {
+			this.$el.listview('refresh');
 		}
 	
 	});
