@@ -4,8 +4,10 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 		var GamePageView = JQPageView.extend({
 			events: {
 				'click #btn_game_continue': 'next_page',
-				'click #btn_game_tactics' : 'open_tactics'
+				'click #btn_game_tactics' : 'open_tactics',
+				'pagebeforechange':'verify_exit'
 			},
+			id:'game_page',
 			initialize: function(options) {
 				JQPageView.prototype.initialize.apply(this, [options]);
 				this.listenTo(this.model,'game:next_page:static',this.next_page_static);
@@ -45,10 +47,10 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 			open_tactics: function() {
 				var hints_in_page = this.model.hints_in_page();
 				if ( hints_in_page.size() === 0 ) {
-					var tooltip = new GeneralPopup({message:"No available hints for this page ..."});
+					var tooltip = new GeneralPopup({message:"No hints for this page ..."});
 					var html = tooltip.render();
 					this.$el.append(html);
-					tooltip.open_tooltip();
+					tooltip.open_tooltip(2000);
 					return;
 				}
 				var dialog = new HintsView({model:this.model});
@@ -129,6 +131,16 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				var dialog = new MultipleOptionView({model:this.model});
 				this.$el.append(dialog.render());
 				dialog.open_dialog();
+			},
+			verify_exit:function(e,data) {
+				console.log("Verifying exit ...");
+				var answer = confirm("Exit the quest?");
+				if (!answer) {
+					e.preventDefault();
+					e.stopPropagation();
+					console.log(window.location);
+					return false;
+				}
 			}
 			
 			

@@ -316,6 +316,28 @@ a.ui-btn:focus,
 .game_btn_label {
 	font-size:x-large;
 }
+
+.general_tooltip_style {
+	background-color: rgba(201, 217, 220, 0.4) !important;
+	font-weight:400;
+	font-family: "Roboto" !important;	
+}
+.confirmation_dialog {
+	min-width: 400px !important;
+}
+.confirmation_dialog table {
+	table-layout: fixed;
+	width:100%;	
+}
+
+#confirmation_message {
+	font-size:x-large;
+}
+.confirmation_dialog td {
+	padding: 1em;
+	padding-bottom:0px;
+}
+
 #game_button_container a:last-child {
 	border-right-width: 0px;
 }

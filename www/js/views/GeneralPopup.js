@@ -5,15 +5,22 @@ define(['Backbone','text!templates/general_tooltip_popup.html'],function(Backbon
 		},
 		initialize:function(options) {
 			this.message = options.message;
+			this.page_html = options.page_html || page_html;
 		},
 		render: function() {
-			var html = _.template(page_html,{message:this.message});
+			var html = _.template(this.page_html,{message:this.message});
 			this.$el = $(html);
 			return this.$el;
 		},
-		open_tooltip: function() {
+		open_tooltip: function(timeout) {
 			this.$el.popup();
 			this.$el.popup("open");
+			var context = this;
+			if (timeout) {
+				setTimeout(function() {
+					context.$el.popup("close");
+				},timeout);
+			}
 		}
 	});
 	

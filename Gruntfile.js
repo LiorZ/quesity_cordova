@@ -120,6 +120,9 @@ module.exports = function(grunt) {
 			{expand: true, flatten:true, src:['node_modules/mocha/mocha.css','node_modules/mocha/mocha.js'], dest:'www/js/tests/lib'},
 			{expand:true, flatten:true, src: ['node_modules/chai/*'], dest:'www/js/tests/lib/chai'}
 		]
+	},
+	dist: {
+		files: [expand:true, flatten:true, src:['./**'], dest:'dist']
 	}
     },
 
@@ -172,7 +175,13 @@ module.exports = function(grunt) {
 
 		grunt.task.run('shell:debug_' + platform + "_device");
 	});
-	
+	grunt.registerTask('dist','Create a distribution', function(platform) {
+		grunt.task.run('jshint:app');
+		grunt.task.run('copy:release');
+		grunt.task.run('rename:release');
+		grunt.task.run('test:models');
+		grunt.task.run('copy:dist');
+	});	
 	grunt.registerTask('test:models', ['jshint:app','copy:test-libs','connect', 'mocha_phantomjs','remove:test-libs']);
 
 

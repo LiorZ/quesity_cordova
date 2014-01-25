@@ -94,7 +94,7 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 				page.delegateEvents();
 				$('body').trigger('create');
 				console.log("Change page " + window.location);
-				$.mobile.changePage(jq_obj, { changeHash: true } );
+				$.mobile.changePage(jq_obj, { changeHash: false } );
 				page.refresh();
 			}
 		});

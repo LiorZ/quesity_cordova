@@ -58,17 +58,40 @@ require.config({
 });
 
 define(['jqm','domReady','Backbone','BackboneRelational','routers/AppRouter','fb-connect','facebook-js-sdk','models/api','models/globals',
-        'waitForImages','iscroll','jqm-iscroll'], 
-function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_sdk,api,globals,waitForImages,iscroll,jqm_iscroll) {
+        'waitForImages','iscroll','jqm-iscroll','views/ConfirmationPopup'], 
+function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_sdk,api,globals,waitForImages,iscroll,jqm_iscroll,ConfirmationPopup) {
 	
 		// domReady is RequireJS plugin that triggers when DOM is ready
 		console.log("Before DomReady");
 		Backbone.Relational.store.addModelScope(globals);
+		var onBackKeyPress = function() {
+			var page_id = $.mobile.activePage.attr('id');
+			if ( page_id == "game_page" ) {
+				var dialog = new ConfirmationPopup({
+					message:"Leave Quest?",
+					yes_callback:function(){
+						navigator.app.backHistory();
+					}
+				});
+				var jqobj = dialog.render();
+				$("#"+page_id).append(jqobj);
+				dialog.delegateEvents();
+				$('body').trigger('create');
+				dialog.open_tooltip();
+
+			}else if ( page_id == "home_view" ) {
+				navigator.app.exitApp();
+			}
+			else {
+				navigator.app.backHistory();
+			}
+		};
+		
 		domReady(function () {
 
 			function onDeviceReady(desktop) {
 				console.log("Entered onDeviceReady");
-				
+	            document.addEventListener("backbutton", onBackKeyPress, false);
 			    //Fixing the content-height issue:
 				
 				if ( !desktop )
