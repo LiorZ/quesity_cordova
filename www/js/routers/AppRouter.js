@@ -29,7 +29,6 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 						game.set_quest(quest);
 						game_view = new GamePageView({model:game});
 						context.change_page(game_view);
-						game_view.refresh();
 						
 					},
 					error: function() {
@@ -47,7 +46,6 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 				if ( ! _.isUndefined(model) && !_.isNull(model) ){
 					var quest_page = new QuestPropertiesView({model:model});
 					this.change_page(quest_page);
-					quest_page.refresh();
 				}else{
 					alert("Error displaying quest, please try to logout and retry");
 				}
@@ -69,7 +67,6 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 						$.mobile.loading("hide");
 						var view = new FindQuestView({model: test_collection});
 						context.change_page(view);
-						view.refresh();
 					},
 					error: function(collection,response) {
 						$.mobile.loading("hide");
@@ -98,6 +95,7 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 				$('body').trigger('create');
 				console.log("Change page " + window.location);
 				$.mobile.changePage(jq_obj, { changeHash: true } );
+				page.refresh();
 			}
 		});
 		return AppRouter;

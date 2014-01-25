@@ -82,11 +82,23 @@ body,
 	font-size: 1.5em !important;
 }
 
+
+.ui-header,
+.ui-footer {
+	border-width:0px;
+}
+
+
 li.ui-li-has-thumb {
 }
 
 li.ui-li-has-thumb>a.ui-btn {
 	border:0px !important;
+}
+
+
+.list-item-active {
+	background-color: rgba(169, 199, 203, 1) !important;
 }
 
 li:nth-child(odd).ui-li-has-thumb>a.ui-btn {
@@ -154,7 +166,7 @@ li.ui-li-has-thumb>a.ui-btn>p {
 
 #btn_play {
 	margin:1em;
-	margin-top:2em;
+	margin-top:1em;
 	font-size:1em;
 	font-family:"Roboto" !important
 	font-weight:300;
@@ -162,9 +174,35 @@ li.ui-li-has-thumb>a.ui-btn>p {
 
 #btn_play:focus,
 #btn_play:active,
+.main-menu-btn-manual,
+a.ui-btn:active,
+a.ui-btn:focus,
 .main-menu-btn:focus,
 .main-menu-btn:active {
-	border:0px !important;
+	border-bottom-color: rgba(1,1,1,0) !important;
+}
+
+#btn_play:focus,
+#btn_play:active,
+.main-menu-btn-manual,
+.main-menu-btn:focus,
+.main-menu-btn:active 
+{
+	position:relative;
+	top:2px;
+}
+
+.multiple_choice_item {
+	font-size: x-large !important;
+	font-family:"Roboto" !important;
+	font-weight:400 !important;
+}
+
+.fast-listview-scroll {
+	-webkit-transform : translateZ(0); 
+	-o-transform : translateZ(0); 
+	-moz-transform : translateZ(0); 
+	transform : translateZ(0); 
 }
 
 .quest-tag-wrapper {
@@ -244,27 +282,40 @@ li.ui-li-has-thumb>a.ui-btn>p {
 	top:auto;
 	width:100%;
 }
+.used-hint h4{
+	text-decoration: line-through !important;
+}
 
 #game_button_container {
 	width:100%;
 	border-top:2px solid #103E41;
 	text-align:center;
 	padding:0px;
-	margin-right:auto;
-	margin-left:auto;
+	background-color: #61A2BE;
+	table-layout: fixed;
+	border-spacing:0px;
+}
+
+.game_button_container {
+	padding:0px;
+	border-right:2px solid #103E41;
+	width:100%;
+}
+.game_button_container:last-child{
+	border-right:0px;
 }
 
 #game_button_container a {
 	margin:0px;
 	border-radius: 0px;
 	border:0px;
-	float:left;
-	width:27.6%; 
-	border-right:2px solid #103E41;
-	font-family: "Roboto" !important;
 	font-weight:400;
+	font-family: "Roboto" !important;
 }
 
+.game_btn_label {
+	font-size:x-large;
+}
 #game_button_container a:last-child {
 	border-right-width: 0px;
 }
@@ -284,6 +335,7 @@ li.ui-li-has-thumb>a.ui-btn>p {
 	background: white;
 }
 
+#option-list-container,
 #hint_collapsibles {
 	min-width: 400px;
 }

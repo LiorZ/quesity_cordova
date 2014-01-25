@@ -6,8 +6,10 @@
     </description>
     <feature name="org.apache.cordova.facebook.Connect">
 <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
+<preference name="Orientation" value="portrait" />
+<icon src="icons/Android/72.png" />
 </feature>
-    <author email="liorz1984@gmail.com" href="http://www.quesity.com">
+    <author email="lior@quesity.com" href="http://www.quesity.com">
 	Quesity Development Team	
    </author>
     <content src="index.html" />

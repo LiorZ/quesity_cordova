@@ -1,5 +1,5 @@
 define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuestionDialogView',
-        'views/MultipleOptionView','views/HintsView'],function(JQPageView,template,OpenQuestionDialogView,MultipleOptionView,HintsView) {
+        'views/MultipleOptionView','views/HintsView','views/GeneralPopup'],function(JQPageView,template,OpenQuestionDialogView,MultipleOptionView,HintsView,GeneralPopup) {
 	
 		var GamePageView = JQPageView.extend({
 			events: {
@@ -43,6 +43,14 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				game.invoke_next_page();
 			},
 			open_tactics: function() {
+				var hints_in_page = this.model.hints_in_page();
+				if ( hints_in_page.size() === 0 ) {
+					var tooltip = new GeneralPopup({message:"No available hints for this page ..."});
+					var html = tooltip.render();
+					this.$el.append(html);
+					tooltip.open_tooltip();
+					return;
+				}
 				var dialog = new HintsView({model:this.model});
 				this.$el.append(dialog.render());
 				dialog.open_dialog();

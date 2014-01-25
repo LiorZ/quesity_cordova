@@ -2,25 +2,37 @@
 			<%= page_content %>
 		</div>			
 		<div data-role="footer" id="game_footer">
-			<div id="game_button_container" >
-			<a id="btn_game_menu" data-role="button">
-				<table>
-					<tr><td><img src='img/menu.png'/></td></tr>
-					<tr><td>Menu</td></tr>
-				</table>
-				
-			</a>
-			<a id="btn_game_continue" data-role="button">
-				<table>
-					<tr><td><img src='img/continue.png'/></td></tr>
-					<tr><td>Continue</td></tr>
-				</table>
-				</a>
-			<a id="btn_game_tactics" data-role="button">
-				<table>
-					<tr><td><img src='img/tactics.png'/></td></tr>
-					<tr><td>Tactics</td></tr>
-				</table>
-			</a>
-		   </div>
+						<table id="game_button_container">
+				<tr>
+					<td class="game_button_container">
+						<a id="btn_game_menu" data-role="button">
+							<table>
+								<tr><td><img src='img/menu.png'/></td></tr>
+								<tr><td class="game_btn_label">Menu</td></tr>
+							</table>
+							
+						</a>						
+					</td>
+					<td class="game_button_container">
+
+						<a id="btn_game_continue" data-role="button">
+										<table>
+											<tr><td><img src='img/continue.png'/></td></tr>
+											<tr><td class="game_btn_label">Continue</td></tr>
+										</table>
+						</a>
+						
+					</td>
+					<td class="game_button_container">
+						
+						<a id="btn_game_tactics" data-role="button">
+										<table>
+											<tr><td><img src='img/tactics.png'/></td></tr>
+											<tr><td class="game_btn_label">Hints</td></tr>
+										</table>
+						</a>
+						
+					</td>
+				</tr>
+			</table>
 		</div>

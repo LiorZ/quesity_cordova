@@ -2,7 +2,8 @@ define(['Backbone','text!templates/multiple_option_view.html','views/MultipleOpt
 		function(Backbone,page_html,MultipleOptionItemView,CollectionView) {
 	var MultipleOptionView = CollectionView.extend({
 		events:{
-			'click .multiple_choice_item': 'close_popup'
+			'click .multiple_choice_item': 'close_popup',
+			'popupafterclose':'remove'
 		},
 		initialize:function() {
 			var item_view_params = {

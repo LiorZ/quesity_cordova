@@ -11,9 +11,14 @@ define(['Backbone'],function(Backbone) {
 		render: function() {
 			var tmpl_page = _.template(this.template,this.model.toJSON());
 			this.$el = $(tmpl_page);
+			this.before_rendering();
 			return this.$el;
 		},
-		click_event: function() {
+		before_rendering: function() {
+			
+		},
+		after_rendering: function() {
+			
 		}
 		
 	});
