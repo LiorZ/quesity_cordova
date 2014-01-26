@@ -52,7 +52,7 @@ require.config({
     	exports: 'BackboneRelational'
     },
     jqm: {
-	deps: ['jQuery']
+    	deps: ['jQuery']
     }
   }
 });

@@ -43,6 +43,15 @@ module.exports = function(grunt) {
     },
     fileList: ['www/js/tests/lib/mocha.css','www/js/tests/lib/mocha.js'],
     dirList: ['www/js/tests/lib/chai']
+  },
+  'dist': {
+  	dirList: ['dist']
+  },
+  'dist-prepare': {
+  	dirList:['dist/www/js/tests']
+  },
+  'unoptimized-js':{
+  	dirList: ['dist/www/js']
   }
   },
     uglify: {
@@ -74,10 +83,32 @@ module.exports = function(grunt) {
       },
       clear_logcat_android: {
 	command: 'adb logcat -c'
+      },
+      'build-release': {
+        options: {
+        	stdout:true,
+        	 execOptions: {
+                    cwd: 'dist'
+                }        	
+        },
+      	command: 'cp -rf ../.cordova . && chmod +x platforms/android/cordova/build && cordova build android --release'
+      },
+      'sign-release': {
+        options:{
+        	stdout:true
+        },
+      	command: function() {
+      		var pass_json = grunt.file.readJSON('./storepass');
+      		return 'jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore /home/lior/workspace/Quesity/Tools/key-store/quesity-release-key.keystore -storepass ' + pass_json.password + ' dist/platforms/android/bin/Quesity-release-unsigned.apk alias_name'
+      	}
+      	
+      },
+      'zipalign-release': {
+      	command: 'zipalign -v 4 dist/platforms/android/bin/Quesity-release-unsigned.apk dist/platforms/android/bin/Quesity-release.apk'
       }
     },
     jshint: {
-      app: ['www/js/*.js','www/js/views/*.js','www/js/models/*.js','www/js/routers/*.js'],
+      app: ['www/js/*.js','www/js/views/*.js','www/js/models/*.js','www/js/routers/*.js','!www/js/requirejs-config.js'],
       test: ['www/js/tests/backbone/*.js','www/js/models/*.js'],
       options: {
         curly: false,
@@ -122,7 +153,9 @@ module.exports = function(grunt) {
 		]
 	},
 	dist: {
-		files: [expand:true, flatten:true, src:['./**'], dest:'dist']
+		files: [{expand: true, src:['./**','!./node_modules/**','!./www/js/tests/**'], dest:'dist'},
+		{expand:true,flatten:true, src:['./config/project.properties'], dest:'dist/platforms/android/'}
+		]
 	}
     },
 
@@ -133,10 +166,24 @@ module.exports = function(grunt) {
 
 	debug: { 
 		files: [ {src:['www/js/config_debug.js'], dest:'www/js/config.js'} ]
+	},
+	'optimized-js': {
+		files:[ {src:['dist/www/js_optimized'] , dest:'dist/www/js' } ]
 	}
 
 
-    }
+    },
+	requirejs: {
+	  compile: {
+	    options: {
+		appDir: './dist/www/js',
+		baseUrl:'./dist/www/js',
+		dir:'./dist/www/js_optimized',
+		mainConfigGile:'./dist/www/js/boot.js',
+		optimize:'uglify'
+	    }
+	  }
+	}  
 });
 
 	grunt.loadNpmTasks('grunt-shell');
@@ -148,6 +195,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-rename'); 
 	grunt.loadNpmTasks('grunt-mocha-phantomjs');
 	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-remove');
 	
 	// Custom tasks
@@ -180,7 +228,15 @@ module.exports = function(grunt) {
 		grunt.task.run('copy:release');
 		grunt.task.run('rename:release');
 		grunt.task.run('test:models');
+		grunt.task.run('remove:dist');
 		grunt.task.run('copy:dist');
+		grunt.task.run('requirejs:compile');
+		grunt.task.run('remove:unoptimized-js');
+		grunt.task.run('rename:optimized-js');
+		grunt.task.run('shell:build-release');
+		grunt.task.run('shell:sign-release');
+		grunt.task.run('shell:zipalign-release');
+		
 	});	
 	grunt.registerTask('test:models', ['jshint:app','copy:test-libs','connect', 'mocha_phantomjs','remove:test-libs']);
 

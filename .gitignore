@@ -1,2 +1,5 @@
 platforms/
 node_modules/
+storepass
+dist/
+*~*
