@@ -25,6 +25,7 @@
 	padding-bottom:0.6em !important;
 }
 
+
 body,
 .ui-page {
 	background: rgba(74,150,225,1) no-repeat fixed !important;
@@ -84,6 +85,10 @@ body,
 .ui-header h1 {
 	font-family:'Andada' !important;
 	font-size: 2em !important;
+	vertical-align: middle;
+	position: relative;
+	top: -0.1em;
+	color: #103E41;
 }
 
 .header-icon {
@@ -162,6 +167,10 @@ li.ui-li-has-thumb>a.ui-btn>p {
 	border-bottom: 1px solid #103E41 !important;
 }
 
+#find_quest_header {
+	padding-top:0.6em !important;
+	padding-bottom:0.6em !important;
+}
 
 .ui-content {
 	font-size: 1.5em !important;
@@ -189,8 +198,8 @@ li.ui-li-has-thumb>a.ui-btn>p {
 #btn_play:focus,
 #btn_play:active,
 .main-menu-btn-manual,
-a.ui-btn:active,
-a.ui-btn:focus,
+[data-role="button"]:active,
+[data-role="button"]:focus,
 .main-menu-btn:focus,
 .main-menu-btn:active {
 	border-bottom-color: rgba(1,1,1,0) !important;

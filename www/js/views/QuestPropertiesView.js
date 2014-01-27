@@ -1,11 +1,17 @@
 define(['views/JQPageView','text!templates/quest_properties_view.html'],function(JQPageView,template) {
 	
 		var QuestPropertiesView = JQPageView.extend({
+			events: function(){
+				var events = _.extend(JQPageView.prototype.events,{
+					'collapsibleexpand [data-role="collapsible"]':'slide_expand',
+					'collapsiblecollapse [data-role="collapsible"]':'slide_collapse',
+					 //This is a fix to the disappearance of the border upon clicking. no idea why it happens (only on mobile web)
+					'touchend [data-role="collapsible"]': 'fix_border'
+				});
+				return events;
+			},
 			render: function() {
 				var html = _.template(template,this.model.toJSON());
-//				if ( ! $('body').hasClass('body-background') ){
-//					$('body').addClass('body-background');
-//				}
 				
 				this.$el.html(html);
 
@@ -23,6 +29,25 @@ define(['views/JQPageView','text!templates/quest_properties_view.html'],function
 						},500);
 					});
 				});
+			},
+			prepare_slide: function(e) {
+				console.log("Expanding...");
+				var colaps = $(e.target);
+				colaps.children().next().hide();
+				return colaps;
+			},
+			
+			slide_expand: function(e) {
+				var colapse = this.prepare_slide(e);
+				colapse.children().next().slideDown(200);
+			},
+			slide_collapse: function(e) {
+				var colaps = $(e.target);
+				colaps.children().next().slideUp(200);
+			},
+			fix_border: function(e) {
+				var elem = $(e.target);
+				elem.find('a').css("border-bottom","2px solid #103e41 !important;");
 			}
 			
 		});

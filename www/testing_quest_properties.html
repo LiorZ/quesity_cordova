@@ -6,12 +6,15 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="width=device-width, user-scalable=no height=device-height, target-densitydpi=device-dpi"  />
         <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
+          <link rel="stylesheet" href="js/lib/swipejs/style.css"/>
+
         <link rel="stylesheet" type="text/css" href="css/main.css" />
 	<!-- <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.0.min.css" /> -->
 	  <link rel="stylesheet" href="css/Quesity.css" />
   		<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
   <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.0.min.css" />
-  <link rel="stylesheet" href="js/lib/swipejs/style.css"/>
+      <link href='http://fonts.googleapis.com/css?family=Andada|Roboto:400,300,100' rel='stylesheet' type='text/css'>
+
 		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
 		<script src="js/lib/swipejs/swipe.js"></script>
@@ -19,15 +22,17 @@
 		<script type="text/javascript">
 			$(document).on("pageshow",function() {
 				window.mySwipe = $('#slider').Swipe({continuous: true,auto: 3000,}).data('Swipe');
-				
 			});
 		</script>
 	<title>Quesity</title>
     </head>
     <body>
    <div data-role="page" class="page-theme">
-	<div id="find_quest_header" data-role="header"  data-position="fixed">
-	<h3>The adventures of Tel Aviv</h3>
+	<div id="find_quest_header" data-role="header" style:>
+					<div id="header_container" style="width:100%; text-align: center;">
+					<img src="css/images/icons-png/search.png" class="header-icon"/>
+					<h1 style="display:inline !important;">Find Quest</h1>
+					</div>
 	</div>
 	<div id="find_quest_content" data-role="content" style="padding: 0px;" class='quest-page-inner-content'>
 		<div id='slider' class='swipe'>
