@@ -98,20 +98,21 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 			change_page: function(page,callbacks) {
 				var jq_obj = page.render();
 				$('body').append(jq_obj);
-				if ( this.current_page )
-					this.current_page.html('');
-				
-				this.current_page = jq_obj;
-				page.delegateEvents();
-				$('body').trigger('create');
 				console.log("Change page " + window.location);
 				jq_obj.waitForImages(function() {
+					if ( this.current_page )
+						this.current_page.html('');
+					
+					this.current_page = jq_obj;
+					page.delegateEvents();
+					$('body').trigger('create');
 					if (callbacks)
 						callbacks.images_loaded();
 					$.mobile.changePage(jq_obj, { changeHash: false } );
+					page.refresh();
+
 				});
 				
-				page.refresh();
 			}
 		});
 		return AppRouter;

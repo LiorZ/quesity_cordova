@@ -1,14 +1,15 @@
-	<div id="find_quest_header" data-role="header"  data-position="fixed">
+	<div id="quest_properties_header" data-role="header"  data-position="fixed" class="general_header">
 	<div id="header_container" style="width:100%; text-align: center;">
-		<h2><%= title %></h2>
+		<h2 style="display:inline !important;"><%= title %></h2>
+		<img src="css/images/icons-png/book-empty.png" class="header-icon" style="width:1em !important;"/>
 	</div>
 	</div>
 	<div id="find_quest_content" data-role="content" style="padding: 0px;" class='find-quest-content' data-iscroll>
 		<div id='slider' class='swipe'>
 		  <div class='swipe-wrap' style="text-align: center;">
 		  	<%
-		  	if (images && images.length > 0) {
-		  		for (var i=0; i<images.length; ++i){
+		  	if (images && images.length > 1) {
+		  		for (var i=1; i<images.length; ++i){
 		  	%>
 		
 		    <div><img src="<%= images[i] %>" style="width:100%;"/></div>

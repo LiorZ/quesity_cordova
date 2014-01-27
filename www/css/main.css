@@ -15,9 +15,16 @@
 .find-quest-content {
 	background: rgba(74,150,225,0) no-repeat fixed !important;
 }
+
 .ui-page-theme-a {
 	background: rgba(74,150,225,0) no-repeat fixed !important;
 }
+
+.general_header {
+	padding-top: 0.6em !important;
+	padding-bottom:0.6em !important;
+}
+
 body,
 .ui-page {
 	background: rgba(74,150,225,1) no-repeat fixed !important;
@@ -77,6 +84,11 @@ body,
 .ui-header h1 {
 	font-family:'Andada' !important;
 	font-size: 2em !important;
+}
+
+.header-icon {
+	width: 2.6em; 
+	display:inline;
 }
 .ui-header h2 {
 	font-size: 1.5em !important;
