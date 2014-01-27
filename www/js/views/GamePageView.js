@@ -107,7 +107,10 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				var error_func = function(error) {
 					$.mobile.loading("hide");
 					if ( error.code = PositionError.TIMEOUT ){
-						alert("Couldn't get a fix on your location"); //#il8 #redesign
+						context.show_ok_only_popup({
+							title:"Location Error",
+							message:"Couldn't get a fix on your location"
+						});
 					}
 					console.log(JSON.stringify(error));
 				};
@@ -116,7 +119,10 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
                         {enableHighAccuracy: true, timeout:10000});
 			},
 			show_wrong_location: function() {
-				alert("You are not at the right location...");
+				context.show_ok_only_popup({
+					title:"Wrong location",
+					message:"It appears that you are not at the right location .. "
+				});
 			},
 			
 			show_open_question_dialog: function() {

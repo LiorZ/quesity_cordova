@@ -353,6 +353,7 @@ li.ui-li-has-thumb>a.ui-btn>p {
 	width:100%;	
 }
 
+#ok_only_message,
 #confirmation_message {
 	font-size:x-large;
 }

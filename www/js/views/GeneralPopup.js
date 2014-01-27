@@ -13,11 +13,8 @@ define(['Backbone','text!templates/general_tooltip_popup.html'],function(Backbon
 			return this.$el;
 		},
 		open_tooltip: function(timeout) {
-			console.log("F");
 			this.$el.popup();
-			console.log("G");
 			this.$el.popup("open");
-			console.log("H");
 			var context = this;
 			if (timeout) {
 				setTimeout(function() {

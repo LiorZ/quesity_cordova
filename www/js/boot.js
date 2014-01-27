@@ -70,7 +70,6 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 				navigator.app.backHistory();
 				return;
 			}
-			console.log('A');
 			if ( page_id == "game_page" ) {
 				console.log('B');
 				var dialog = new ConfirmationPopup({
@@ -83,9 +82,7 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 				$.mobile.activePage.find("#page_container").append(jqobj);
 				dialog.delegateEvents();
 				$('body').trigger('create');
-				console.log('C');
 				dialog.open_tooltip();
-				console.log('D');
 
 			}else if ( page_id == "home_view" ) {
 				navigator.app.exitApp();
@@ -103,9 +100,6 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 	            document.addEventListener("backbutton", onBackKeyPress, false);
 			    //Fixing the content-height issue:
 				
-				if ( !desktop )
-					navigator.splashscreen.hide();
-				
 				FB.init({
 					appId: '211673598896341',
 					nativeInterface: CDV.FB,
@@ -122,6 +116,9 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 								access_token: response.authResponse.accessToken
 							};
 							$.post(api.register_facebook,json_to_send, function(data,textStatus,xhr) {
+								if ( !desktop )
+									navigator.splashscreen.hide();
+								
 								if ( xhr.status ==  200 ){
 									window.localStorage.setItem('account_id',JSON.stringify(data._id));
 									window.location.hash="#home";

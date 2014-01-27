@@ -1,5 +1,5 @@
-define(['Backbone','models/globals'], 
-	function(Backbone,globals) {
+define(['Backbone','models/globals','views/OKOnlyPopup'], 
+	function(Backbone,globals,OKOnlyPopup) {
 		var view = Backbone.View.extend({
 			initialize: function() {
 				this.$el.attr('data-role','page');
@@ -42,6 +42,14 @@ define(['Backbone','models/globals'],
 			remove_style_manually: function(ev) {
 				$(ev.target).removeClass('main-menu-btn-manual');
 			},
+			show_ok_only_popup: function(data) {
+				var popup = new OKOnlyPopup(data);
+				var html = popup.render();
+				this.$el.append(html);
+				popup.delegateEvents();
+				$('body').trigger('create');
+				popup.open_tooltip();
+			}
 			
 			
 		});	
