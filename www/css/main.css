@@ -101,6 +101,8 @@ li.ui-li-has-thumb>a.ui-btn {
 	background-color: rgba(169, 199, 203, 1) !important;
 }
 
+
+
 li:nth-child(odd).ui-li-has-thumb>a.ui-btn {
 	background-color: rgba(201, 217, 220) !important;
 	background-color: rgba(201, 217, 220, 0.4) !important;
@@ -318,7 +320,7 @@ a.ui-btn:focus,
 }
 
 .general_tooltip_style {
-	background-color: rgba(201, 217, 220, 0.4) !important;
+	background-color: rgb(201, 217, 220) !important;
 	font-weight:400;
 	font-family: "Roboto" !important;	
 }

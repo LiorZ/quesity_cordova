@@ -66,7 +66,13 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 		Backbone.Relational.store.addModelScope(globals);
 		var onBackKeyPress = function() {
 			var page_id = $.mobile.activePage.attr('id');
+			if ( _.isUndefined(page_id) || _.isNull(page_id) ) {
+				navigator.app.backHistory();
+				return;
+			}
+			console.log('A');
 			if ( page_id == "game_page" ) {
+				console.log('B');
 				var dialog = new ConfirmationPopup({
 					message:"Leave Quest?",
 					yes_callback:function(){
@@ -74,15 +80,18 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 					}
 				});
 				var jqobj = dialog.render();
-				$("#"+page_id).append(jqobj);
+				$.mobile.activePage.find("#page_container").append(jqobj);
 				dialog.delegateEvents();
 				$('body').trigger('create');
+				console.log('C');
 				dialog.open_tooltip();
+				console.log('D');
 
 			}else if ( page_id == "home_view" ) {
 				navigator.app.exitApp();
 			}
 			else {
+				console.log('E');
 				navigator.app.backHistory();
 			}
 		};
@@ -137,6 +146,7 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 				// Disabling this will prevent jQuery Mobile from handling hash changes
 				$.mobile.hashListeningEnabled = false;
 				$.mobile.defaultPageTransition = 'fade';
+				$.mobile.transitionFallbacks.slideout = "slide";
 				$.mobile.ajaxEnabled = false;
 				$.mobile.pushStateEnabled = false;
 

@@ -17,7 +17,7 @@ function(Backbone,QuestListView,page_html,JQPageView) {
 		},
 		refresh: function() {
 			var context = this;
-			 $("#find-quest-page-content").iscrollview("refresh",50,function(){
+			 $("#find-quest-page-content").iscrollview("refresh",10,function(){
 				 context.list_view.refresh();
 			 });
 			 

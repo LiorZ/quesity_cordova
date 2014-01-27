@@ -6,8 +6,7 @@ define(['Backbone','text!templates/home_template.html','views/JQPageView'],
 //				if ( ! $('body').hasClass('body-background') ){
 //					$('body').addClass('body-background');
 //				}
-				var jq_obj = this.format_template(home_template);
-				this.$el.append(jq_obj);
+				this.$el.html(home_template);
 				return this.$el;
 			}	
 		});	

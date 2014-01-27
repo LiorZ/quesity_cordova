@@ -7,14 +7,14 @@ define(['Backbone','models/globals'],
 			
 			events:function(){
 				var core_events = {
-						'pageremove':'page_remove'
+						'pageremove':'page_remove',
 				};
 				
 				if ( globals.platform.os == "Android" && globals.platform.version > -1 && globals.platform.version   < 3 ) {
 					console.log("Adding manual touch events");
 					core_events = _.extend(core_events,{
-						'touchstart .ui-btn' : 'apply_style_manually',
-						'touchend .ui-btn' : 'remove_style_manually'
+						'touchstart a.ui-btn' : 'apply_style_manually',
+						'touchend a.ui-btn' : 'remove_style_manually'
 					});
 				}
 				

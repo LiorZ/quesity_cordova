@@ -20,7 +20,7 @@ define(['views/JQPageView','text!templates/quest_properties_view.html'],function
 						setTimeout(function() {
 							swiper.setup();
 							$("#find_quest_content").iscrollview("refresh",10);
-						},1000);
+						},500);
 					});
 				});
 			}
