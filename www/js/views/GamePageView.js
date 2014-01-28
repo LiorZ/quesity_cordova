@@ -66,25 +66,28 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 			switch_to_page:function(page) {
 				var page_html = page.get('page_content');
 				var page_container = $('#page_container');
+				var virtual_page = $('<div id="virtual_page_container"></div>');
+				$('body').append(virtual_page);
 				var next_page_container = $('.iscroll-content');
 				$.mobile.loading("show",{
 					text:'Moving to next page ... ',
 					textVisible: true,
 					theme:'b'
 				});
-				page_container.animate({opacity:0},{duration:300, complete:function() {
-					next_page_container.html(page_html);
-					page_container.waitForImages(function() {
-						page_container.animate({opacity:1},{duration: 300, complete: function() {
+				
+				virtual_page.html(page_html);
+				virtual_page.waitForImages(function() {
+					page_container.fadeOut(500,function() {
+						next_page_container.html(virtual_page.html());
+						virtual_page.remove();
+						page_container.iscrollview("refresh",500,function() {
+							page_container.iscrollview("scrollTo",0,0);
+						});
+						page_container.fadeIn(500,function() {
 							$.mobile.loading("hide");
-							page_container.iscrollview("refresh",100);
-
-						}
 						});
 					});
-						
-				}});
-				
+				});
 			},
 			
 			next_page_location:function() {
@@ -147,6 +150,10 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 					console.log(window.location);
 					return false;
 				}
+			},
+			page_remove: function() {
+				$("#find-quest-page-content").iscrollview("destroy");
+				JQPageView.prototype.page_remove.apply(this,[]);
 			}
 			
 			

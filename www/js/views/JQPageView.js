@@ -48,6 +48,7 @@ define(['Backbone','models/globals','views/OKOnlyPopup'],
 				this.$el.append(html);
 				popup.delegateEvents();
 				$('body').trigger('create');
+				this.delegateEvents();
 				popup.open_tooltip();
 			}
 			

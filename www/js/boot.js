@@ -88,7 +88,6 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 				navigator.app.exitApp();
 			}
 			else {
-				console.log('E');
 				navigator.app.backHistory();
 			}
 		};
@@ -142,8 +141,12 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 
 				// Disabling this will prevent jQuery Mobile from handling hash changes
 				$.mobile.hashListeningEnabled = false;
-				$.mobile.defaultPageTransition = 'fade';
-				$.mobile.transitionFallbacks.slideout = "slide";
+				console.log("Platform: " + globals.platform.os + " Version: "  +globals.platform.version);
+				if ( globals.platform.os == "Android" && globals.platform.version < 3 ) {
+					$.mobile.defaultPageTransition = 'slide';
+				}else {
+					$.mobile.defaultPageTransition = 'fade';
+				}
 				$.mobile.ajaxEnabled = false;
 				$.mobile.pushStateEnabled = false;
 

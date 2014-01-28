@@ -21,6 +21,10 @@ function(Backbone,QuestListView,page_html,JQPageView) {
 				 context.list_view.refresh();
 			 });
 			 
+		},
+		page_remove: function() {
+			$("#find-quest-page-content").iscrollview("destroy");
+			JQPageView.prototype.page_remove.apply(this,[]);
 		}
 
 		

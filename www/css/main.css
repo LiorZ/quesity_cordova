@@ -47,6 +47,10 @@ body,
 	font-weight: 400;
 	background-color: rgba(201, 217, 220, 0.4) !important;
 	font-size:x-large !important;
+	border-bottom-width:0px;
+}
+.ui-collapsible-heading{ 
+	border-bottom:2px solid #103E41;
 }
 .ui-collapsible > h4 > a > img {
 	height: 1em;
@@ -123,6 +127,7 @@ li.ui-li-has-thumb>a.ui-btn {
 li:nth-child(odd).ui-li-has-thumb>a.ui-btn {
 	background-color: rgba(201, 217, 220) !important;
 	background-color: rgba(201, 217, 220, 0.4) !important;
+	border-bottom-width: 0px;
 }
 li:nth-child(even).ui-li-has-thumb>a.ui-btn {
 	background-color: rgba(169, 199, 203) !important;
@@ -352,7 +357,17 @@ li.ui-li-has-thumb>a.ui-btn>p {
 	table-layout: fixed;
 	width:100%;	
 }
+.popup-btn-2,
+.popup-btn {
+	margin:1em !important; 
+	font-size:x-large !important; 
+	font-family: 'Roboto' !important; 
+	font-weight: 400 !important;
+}
 
+.popup-btn-2{
+	margin:0.5em !important;
+}
 #ok_only_message,
 #confirmation_message {
 	font-size:x-large;
