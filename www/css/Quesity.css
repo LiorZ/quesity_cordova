@@ -281,10 +281,15 @@ html body .ui-group-theme-a .ui-bar-inherit {
 .ui-overlay-a,
 .ui-page-theme-a,
 .ui-page-theme-a .ui-panel-wrapper {
-	background: #f9f9f9 /*{a-page-background-color}*/;
-	border-color: #bbbbbb /*{a-page-border}*/;
+	background: #000000 /*{a-page-background-color}*/;
+	border-color: #BBBBBB /*{a-page-border}*/;
 	color: #103e41 /*{a-page-color}*/;
 	text-shadow: 0 /*{a-page-shadow-x}*/ 0px /*{a-page-shadow-y}*/ 0 /*{a-page-shadow-radius}*/ #f3f3f3 /*{a-page-shadow-color}*/;
+}
+
+.ui-overlay-a {
+	background: #000000 !important;
+	border-color:#000000 !important;
 }
 /* Body: Read-only lists, text inputs, collapsible content */
 .ui-body-a,

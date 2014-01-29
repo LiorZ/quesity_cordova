@@ -25,6 +25,9 @@
 	padding-bottom:0.6em !important;
 }
 
+body{ 
+	height: 100% !important;
+}
 
 body,
 .ui-page {

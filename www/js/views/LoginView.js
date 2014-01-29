@@ -1,6 +1,7 @@
 define(['Backbone','text!templates/login_page.html','views/JQPageView','models/api'], 
 	function(Backbone,home_template, JQPageView,api) {
 		var LoginView = JQPageView.extend({
+			id:'login_view',
 			events:{
 				'click #facebook_login_div': 'facebook_login'
 			},

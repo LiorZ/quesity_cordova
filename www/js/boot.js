@@ -84,7 +84,7 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 				$('body').trigger('create');
 				dialog.open_tooltip();
 
-			}else if ( page_id == "home_view" ) {
+			}else if ( page_id == "home_view" || page_id == "login_view" ) {
 				navigator.app.exitApp();
 			}
 			else {

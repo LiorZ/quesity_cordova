@@ -4,11 +4,19 @@ define(['Backbone','text!templates/general_tooltip_popup.html'],function(Backbon
 			'popupafterclose':'remove'
 		},
 		initialize:function(options) {
-			this.message = options.message;
+			if ( options.message ) {
+				this.message = options.message;
+			}
 			this.page_html = options.page_html || page_html;
+			if (options.events) {
+				this.events = _.extend(this.events,options.events);
+			}
 		},
 		render: function() {
-			var html = _.template(this.page_html,{message:this.message});
+			var html = this.page_html;
+			if (this.message){
+				html = _.template(this.page_html,{message:this.message});
+			}
 			this.$el = $(html);
 			return this.$el;
 		},

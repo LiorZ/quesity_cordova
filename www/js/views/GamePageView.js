@@ -1,11 +1,12 @@
 define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuestionDialogView',
-        'views/MultipleOptionView','views/HintsView','views/GeneralPopup'],function(JQPageView,template,OpenQuestionDialogView,MultipleOptionView,HintsView,GeneralPopup) {
+        'views/MultipleOptionView','views/HintsView','views/GeneralPopup','views/GameMenuView'],
+        function(JQPageView,template,OpenQuestionDialogView,MultipleOptionView,HintsView,GeneralPopup,GameMenuView) {
 	
 		var GamePageView = JQPageView.extend({
 			events: {
 				'click #btn_game_continue': 'next_page',
 				'click #btn_game_tactics' : 'open_tactics',
-				'pagebeforechange':'verify_exit'
+				'click #btn_game_menu':'show_menu'
 			},
 			id:'game_page',
 			initialize: function(options) {
@@ -80,11 +81,11 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 					page_container.fadeOut(500,function() {
 						next_page_container.html(virtual_page.html());
 						virtual_page.remove();
-						page_container.iscrollview("refresh",500,function() {
-							page_container.iscrollview("scrollTo",0,0);
-						});
 						page_container.fadeIn(500,function() {
 							$.mobile.loading("hide");
+							page_container.iscrollview("refresh",500,function() {
+								page_container.iscrollview("scrollTo",0,0);
+							});
 						});
 					});
 				});
@@ -141,19 +142,15 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				this.$el.append(dialog.render());
 				dialog.open_dialog();
 			},
-			verify_exit:function(e,data) {
-				console.log("Verifying exit ...");
-				var answer = confirm("Exit the quest?");
-				if (!answer) {
-					e.preventDefault();
-					e.stopPropagation();
-					console.log(window.location);
-					return false;
-				}
-			},
 			page_remove: function() {
-				$("#find-quest-page-content").iscrollview("destroy");
+				 $('#page_container').iscrollview("destroy");
 				JQPageView.prototype.page_remove.apply(this,[]);
+			},
+			show_menu: function() {
+				var menu = new GameMenuView();
+				var html = menu.render();
+				this.$el.append(html);
+				menu.open_tooltip();
 			}
 			
 			
