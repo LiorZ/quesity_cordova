@@ -20,7 +20,6 @@ define(['views/GeneralPopup','text!templates/game_menu_template.html'],function(
 			GeneralPopup.prototype.open_tooltip.apply(this,[]);
 		},
 		show_map: function() {
-			alert("TOTOTO");
 		},
 		exit:function() {
 			this.$el.popup("close");

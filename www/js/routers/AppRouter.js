@@ -1,6 +1,6 @@
 define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestView','views/LoginView','config', 'models/Quest','views/QuestPropertiesView',
-        'models/Game', 'views/GamePageView','views/LoadingScreen'], 
-	function(Backbone,HomeView, QuestCollection,FindQuestView,LoginView,config, Quest,QuestPropertiesView,Game,GamePageView,LoadingScreen) {
+        'models/Game', 'views/GamePageView','views/LoadingScreen','models/MyQuests','models/globals'], 
+	function(Backbone,HomeView, QuestCollection,FindQuestView,LoginView,config, Quest,QuestPropertiesView,Game,GamePageView,LoadingScreen,MyQuests,globals) {
 		var AppRouter = Backbone.Router.extend({
 			current_page: undefined,
 			current_view:undefined,
@@ -14,7 +14,8 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 				"quest/:quest_id/details" : "show_quest_details",
 				"quest/:quest_id/start": "start_quest",
 				"loading":"show_loading",
-				"loading/error" : "error_loading"
+				"loading/error" : "error_loading",
+				"my_quests":"show_my_quests"
 			},
 			
 			show_loading:function() {
@@ -84,6 +85,23 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 				console.log("Changing to Home");
 				this.change_page(new HomeView());
 			},
+			
+			show_quest_page:function(data) {
+				
+				var view = new FindQuestView({model:data.collection, title:data.title,icon:data.icon});
+				this.change_page(view,{images_loaded:function(){
+					$.mobile.loading("hide");
+				}});
+			},
+			
+			show_my_quests:function() {
+				$.mobile.loading("show");
+				this.show_quest_page({
+					collection: globals.my_quests,
+					title:"My Quests",
+					icon:"img/book-full.png"
+				});
+			},
 
 			show_find_quests: function() {
 				console.log("Showing quests");
@@ -93,10 +111,11 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 				$.mobile.loading("show");
 				test_collection.fetch( { 
 					success: function() { 
-						var view = new FindQuestView({model: test_collection});
-						context.change_page(view,{images_loaded:function(){
-							$.mobile.loading("hide");
-						}});
+						context.show_quest_page({
+							collection:test_collection,
+							title:"Find Quest",
+							icon:'css/images/icons-png/search.png'
+						});
 					},
 					error: function(collection,response) {
 						$.mobile.loading("hide");

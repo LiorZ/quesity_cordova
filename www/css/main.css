@@ -99,7 +99,8 @@ body,
 }
 
 .header-icon {
-	width: 2.6em; 
+	height: 2em;
+	margin-right:1em;
 	display:inline;
 }
 .ui-header h2 {
@@ -447,6 +448,7 @@ li.ui-li-has-thumb>a.ui-btn>p {
 .ui-icon-quesity-my_quests:after,
 .ui-icon-quesity-about:after,
 .ui-icon-quesity-book-empty:after,
+.ui-icon-quesity-book-full:after,
 .quesity-icons:after {
 	background-color: transparent !important;
 }
@@ -458,12 +460,16 @@ li.ui-li-has-thumb>a.ui-btn>p {
     background-image: url("images/icons-png/about.png") !important;
     background-position-x:7% !important;
 }
-
+.ui-icon-quesity-book-full,
 .ui-icon-quesity-book-empty {
 	background-image: url("images/icons-png/book-empty.png") !important;
     background-position-y:center !important;
+    background-position-x:center !important;
     background-repeat: no-repeat !important;
 	background-size: 1.3em !important;
+}
+.ui-icon-quesity-book-full {
+	background-image: url("images/icons-png/book-full.png") !important;
 }
 
 /* SwipeJS Styles */

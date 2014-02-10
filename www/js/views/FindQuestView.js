@@ -2,8 +2,17 @@ define(['Backbone','views/QuestListView','text!templates/find_quest_page.html','
 function(Backbone,QuestListView,page_html,JQPageView) {
 	var view = JQPageView.extend({
 		list_view:undefined,
+		initialize:function(options) {
+			JQPageView.prototype.initialize.apply(this,[options]);
+			this.icon = options.icon;
+			this.title = options.title;
+		},
 		render: function() {
-			this.$el.append(page_html);
+			var processed_html = _.template(page_html,{
+				title: this.title,
+				icon: this.icon
+			});
+			this.$el.append(processed_html);
 			var list_view = new QuestListView({model:this.model});
 			this.list_view = list_view;
 			var list_obj = list_view.render();
