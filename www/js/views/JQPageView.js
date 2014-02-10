@@ -8,6 +8,7 @@ define(['Backbone','models/globals','views/OKOnlyPopup'],
 			events:function(){
 				var core_events = {
 						'pageremove':'page_remove',
+						'pagebeforeshow':'refresh'
 				};
 				
 				if ( globals.platform.os == "Android" && globals.platform.version > -1 && globals.platform.version   < 3 ) {

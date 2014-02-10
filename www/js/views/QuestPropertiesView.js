@@ -2,7 +2,7 @@ define(['views/JQPageView','text!templates/quest_properties_view.html'],function
 	
 		var QuestPropertiesView = JQPageView.extend({
 			events: function(){
-				var events = _.extend(JQPageView.prototype.events,{
+				var events = _.extend(JQPageView.prototype.events.apply(this,[]),{
 					'collapsibleexpand [data-role="collapsible"]':'slide_expand',
 					'collapsiblecollapse [data-role="collapsible"]':'slide_collapse',
 				});
@@ -18,15 +18,17 @@ define(['views/JQPageView','text!templates/quest_properties_view.html'],function
 			refresh: function() {
 				var context = this;
 				require(['swipe'], function(swipe) {
+					console.log("CALLING SWIPE");
 					context.$el.waitForImages(function() {
 						var slider = context.$el.find('#slider');
 						var swiper = slider.Swipe({continuous: true,auto: 5000, speed:500}).data('Swipe');
 						setTimeout(function() {
 							swiper.setup();
-							$("#find_quest_content").iscrollview("refresh",10);
+							$("#find_quest_content").iscrollview("refresh",100);
 						},500);
 					});
 				});
+				
 			},
 			prepare_slide: function(e) {
 				console.log("Expanding...");
@@ -34,7 +36,6 @@ define(['views/JQPageView','text!templates/quest_properties_view.html'],function
 				colaps.children().next().hide();
 				return colaps;
 			},
-			
 			slide_expand: function(e) {
 				var colapse = this.prepare_slide(e);
 				colapse.children().next().slideDown(200);

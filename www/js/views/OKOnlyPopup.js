@@ -11,11 +11,17 @@ define(['Backbone','text!templates/ok_only_popup.html','views/GeneralPopup'],fun
 				title:options.title,
 				message: options.message
 			});
+			if (options.ok_callback) {
+				this.ok_callback = options.ok_callback;
+			}
 			var options_extended = _.extend(options,{page_html:parsed_html});
 			GeneralPopup.prototype.initialize.apply(this,[options_extended]);
 		},
 		ok_clicked :function() {
 			this.$el.popup("close");
+			if ( this.ok_callback ){
+				this.ok_callback();
+			}
 		}
 		
 	});

@@ -26,7 +26,6 @@ function(Backbone,QuestListView,page_html,JQPageView) {
 			$("#find-quest-page-content").iscrollview("destroy");
 			JQPageView.prototype.page_remove.apply(this,[]);
 		}
-
 		
 	});
 

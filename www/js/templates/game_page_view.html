@@ -1,12 +1,12 @@
-		<div id="page_container" data-iscroll>
-			<%= page_content %>
+		<div id="page_wrapper" >
+			<div id="page_container" data-iscroll style='max-height: 100000px !important;'><%= page_content %></div>
 		</div>			
 		<div data-role="footer" id="game_footer" data-position="fixed">
 						<table id="game_button_container">
 				<tr>
 					<td class="game_button_container">
 						<a id="btn_game_menu" data-role="button">
-							<table>
+							<table class="game_page_button">
 								<tr><td><img src='img/menu.png'/></td></tr>
 								<tr><td class="game_btn_label">Menu</td></tr>
 							</table>

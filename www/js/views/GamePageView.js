@@ -3,13 +3,20 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
         function(JQPageView,template,OpenQuestionDialogView,MultipleOptionView,HintsView,GeneralPopup,GameMenuView) {
 	
 		var GamePageView = JQPageView.extend({
-			events: {
-				'click #btn_game_continue': 'next_page',
+			events:function() {
+				
+				var events = _.extend(JQPageView.prototype.events.apply(this,[]),
+				{'click #btn_game_continue': 'next_page',
+				 'touchstart .game_button_container':'touch_begin_color',
+				 'touchend .game_button_container':'touch_end_color',
 				'click #btn_game_tactics' : 'open_tactics',
-				'click #btn_game_menu':'show_menu'
+				'click #btn_game_menu':'show_menu'});
+				
+				return events;
 			},
 			id:'game_page',
 			initialize: function(options) {
+				
 				JQPageView.prototype.initialize.apply(this, [options]);
 				this.listenTo(this.model,'game:next_page:static',this.next_page_static);
 				this.listenTo(this.model,'game:next_page:location',this.next_page_location);
@@ -18,6 +25,25 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				this.listenTo(this.model,'game:next_page:open_question',this.show_open_question_dialog);
 				this.listenTo(this.model,'game:wrong_answer:open_question',this.show_wrong_open_answer);
 				this.listenTo(this.model,'game:next_page:question',this.next_page_question);
+				this.listenTo(this.model,'game:end', this.handle_game_end);
+				
+			},
+			touch_begin_color:function(e) {
+				var jq = $(e.target);
+				if ( jq.hasClass('game_button_container') ) {
+					jq.addClass('active-game-btn').find('a').addClass('active-game-btn');
+				}else {
+					jq.parents('.game_button_container').addClass('active-game-btn').find('a').addClass('active-game-btn');
+				}
+				
+			},
+			touch_end_color:function(e) {
+				var jq = $(e.target);
+				if ( jq.hasClass('game_button_container') ) {
+					jq.removeClass('active-game-btn').find('a').removeClass('active-game-btn');
+				}else {
+					jq.parents('.game_button_container').removeClass('active-game-btn').find('a').removeClass('active-game-btn');
+				}
 			},
 			render: function() {
 				var game = this.model;
@@ -43,7 +69,18 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 			next_page: function() {
 				console.log("Trying to move to the next page");
 				var game = this.model;
-				game.invoke_next_page();
+				if ( ! game.is_game_over() ) {
+					game.invoke_next_page();	
+				}else {
+					this.show_ok_only_popup({
+						title:"Quest is over",
+						message:"Congratulations! You have reached the end of your quest :)",
+						ok_callback:function() {
+							window.history.go(-2);
+						}
+					});
+				}
+				
 			},
 			open_tactics: function() {
 				var hints_in_page = this.model.hints_in_page();
@@ -66,12 +103,17 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 			
 			switch_to_page:function(page) {
 				var page_html = page.get('page_content');
+				this.switch_to_page_content(page_html);
+			},
+			
+			switch_to_page_content: function(page_html) {
 				var page_container = $('#page_container');
+				console.log(page_container);
 				var virtual_page = $('<div id="virtual_page_container"></div>');
 				$('body').append(virtual_page);
 				var next_page_container = $('.iscroll-content');
 				$.mobile.loading("show",{
-					text:'Moving to next page ... ',
+					text:'Loading ... ',
 					textVisible: true,
 					theme:'b'
 				});
@@ -90,6 +132,7 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 					});
 				});
 			},
+			
 			
 			next_page_location:function() {
 				$.mobile.loading("show",{
@@ -120,10 +163,10 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				};
 				navigator.geolocation.getCurrentPosition(success,
                         error_func,
-                        {enableHighAccuracy: true, timeout:10000});
+                        {enableHighAccuracy: true, timeout:20000});
 			},
 			show_wrong_location: function() {
-				context.show_ok_only_popup({
+				this.show_ok_only_popup({
 					title:"Wrong location",
 					message:"It appears that you are not at the right location .. "
 				});
@@ -151,6 +194,12 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				var html = menu.render();
 				this.$el.append(html);
 				menu.open_tooltip();
+			},
+			handle_game_end: function() {
+				var context = this;
+				require(['text!templates/quest_end_template.html'], function(page_html) {
+					context.switch_to_page_content(page_html);
+				});
 			}
 			
 			

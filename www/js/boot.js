@@ -14,7 +14,7 @@ require.config({
     waitForImages: 'lib/jquery/plugins/waitForImages',
     swipe:'lib/swipejs/swipe',
     iscroll:'lib/iscroll-4.2/iscroll-lite',
-    'jqm-iscroll':'lib/jquery-mobile-iscrollview-1.3.6/jquery.mobile.iscrollview'
+    'jqm-iscroll':'lib/jquery-mobile-iscrollview-1.3.6/jquery.mobile.iscrollview',
   },
 
   shim: {
@@ -37,7 +37,6 @@ require.config({
 	'jquery-jsonp': {
 		deps: ['jQuery']
 	},
-
 	'jQuery': {
 		exports:'$'
 	},
@@ -105,6 +104,11 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 					useCachedDialogs: false
 				});
 				
+				var loading_timeout = setTimeout(function() {
+					navigator.splashscreen.hide();
+					window.location.hash="#loading";
+				},4000);
+				
 				
 				var handleStatusChange = function(response) {
 					  if (response.status == "connected" ) {
@@ -114,10 +118,17 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 								facebook_id: response.authResponse.userId,
 								access_token: response.authResponse.accessToken
 							};
-							$.post(api.register_facebook,json_to_send, function(data,textStatus,xhr) {
-								if ( !desktop )
-									navigator.splashscreen.hide();
-								
+						
+						$.ajax({
+							type:"POST",
+							url:api.register_facebook,
+							data:json_to_send,
+							timeout:10000,
+							success:function(data,textStatus,xhr) {
+								console.log('SENT DATA TO QUESITY');
+								navigator.splashscreen.hide();
+								clearTimeout(loading_timeout);
+								$.mobile.loading("hide");
 								if ( xhr.status ==  200 ){
 									window.localStorage.setItem('account_id',JSON.stringify(data._id));
 									window.location.hash="#home";
@@ -125,11 +136,24 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 								else{
 									console.log("Got a bad textstatus");
 									console.log(xhr.status);
+									FB.logout();
 									window.location.hash = "#login";
 								}
-
-							});
+							},
+							error: function(jqXHR, textStatus, errorThrown){
+								clearTimeout(loading_timeout);
+								FB.logout();
+								if ( textStatus == "error"){
+									alert("Network error. Please try again");
+									window.location.hash="#login";
+								}else if ( textStatus == "timeout" ) {
+									window.location.hash = "#loading/error";
+								}
+							}
+						});
 					  } else {
+						  clearTimeout(loading_timeout);
+						  navigator.splashscreen.hide();
 						  console.log("Error getting response");
 						  console.log(JSON.stringify(response));
 						  window.location.hash = "#login";

@@ -1,4 +1,7 @@
-platforms/
+bin/
+cordova/
+platforms/android/assets/www
+platforms/android/.staging
 node_modules/
 storepass
 dist/

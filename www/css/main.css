@@ -259,6 +259,15 @@ li.ui-li-has-thumb>a.ui-btn>p {
 .ui-collapsible {
 	margin-left:0px !important;
 }
+
+#collapsibles .ui-collapsible-content {
+	background-color: rgba(201, 217, 220, 0.4) !important;
+}
+
+#properties_starting_location .ui-collapsible-content {
+	padding:0px;
+}
+
 #inner-page-quest-data{
 	margin-left:1em;
 	font-family: "Roboto" !important;
@@ -392,7 +401,17 @@ li.ui-li-has-thumb>a.ui-btn>p {
 	height: 2em;
 }
 
-#page_container {
+.active-game-btn {
+	background-color: rgba(201, 217, 220, 1) !important;
+}
+
+.close-btn {
+	border:0 !important; 
+	background-color: black !important; 
+	border-radius: 30px !important;
+}
+
+#page_wrapper {
 	height: 94.5%;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -408,6 +427,7 @@ li.ui-li-has-thumb>a.ui-btn>p {
     margin-right: 10% !important;
     margin-left: 10% !important;
 }
+
 
 /* ICONS: */
 .ui-icon-quesity-search,
