@@ -1,4 +1,4 @@
-define(['models/GameCollection','models/globals'],function(GameCollection,globals) {
+define(['models/GameCollection','models/globals','models/MyQuests'],function(GameCollection,globals) {
 	
 	globals.game_collection = new GameCollection();
 	if ( window.localStorage.saved_games ) {
