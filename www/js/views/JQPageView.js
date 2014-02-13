@@ -1,5 +1,5 @@
-define(['Backbone','models/globals','views/OKOnlyPopup'], 
-	function(Backbone,globals,OKOnlyPopup) {
+define(['Backbone','models/globals','views/OKOnlyPopup','views/ConfirmationPopup'], 
+	function(Backbone,globals,OKOnlyPopup,ConfirmationPopup) {
 		var view = Backbone.View.extend({
 			initialize: function() {
 				this.$el.attr('data-role','page');
@@ -8,7 +8,8 @@ define(['Backbone','models/globals','views/OKOnlyPopup'],
 			events:function(){
 				var core_events = {
 						'pageremove':'page_remove',
-						'pagebeforeshow':'refresh'
+						'pagebeforeshow':'refresh',
+						'pageshow':'remove_prev_page'
 				};
 				
 				if ( globals.platform.os == "Android" && globals.platform.version > -1 && globals.platform.version   < 3 ) {
@@ -21,7 +22,13 @@ define(['Backbone','models/globals','views/OKOnlyPopup'],
 				
 				return core_events;
 			},
-			
+			remove_prev_page:function(event, ui){
+				var prev = $(ui.prevPage);
+				if (prev){
+				  prev.trigger("pageremove");
+				}else {
+				}
+			},
 			page_remove: function() {
 				this.remove();
 			},
@@ -43,14 +50,20 @@ define(['Backbone','models/globals','views/OKOnlyPopup'],
 			remove_style_manually: function(ev) {
 				$(ev.target).removeClass('main-menu-btn-manual');
 			},
-			show_ok_only_popup: function(data) {
-				var popup = new OKOnlyPopup(data);
+			draw_popup:function(data,view) {
+				var popup = new view(data);
 				var html = popup.render();
 				this.$el.append(html);
 				popup.delegateEvents();
 				$('body').trigger('create');
 				this.delegateEvents();
 				popup.open_tooltip();
+			},
+			show_ok_only_popup: function(data) {
+				this.draw_popup(data,OKOnlyPopup);
+			},
+			show_confirmation_popup: function(data) {
+				this.draw_popup(data,ConfirmationPopup);
 			}
 			
 			

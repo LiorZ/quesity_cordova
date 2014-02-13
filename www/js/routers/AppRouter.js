@@ -1,6 +1,6 @@
 define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestView','views/LoginView','config', 'models/Quest','views/QuestPropertiesView',
-        'models/Game', 'views/GamePageView','views/LoadingScreen','models/MyQuests','models/globals'], 
-	function(Backbone,HomeView, QuestCollection,FindQuestView,LoginView,config, Quest,QuestPropertiesView,Game,GamePageView,LoadingScreen,MyQuests,globals) {
+        'models/Game', 'views/GamePageView','views/LoadingScreen','models/MyQuests','models/globals','persistance'], 
+	function(Backbone,HomeView, QuestCollection,FindQuestView,LoginView,config, Quest,QuestPropertiesView,Game,GamePageView,LoadingScreen,MyQuests,globals,persistance) {
 		var AppRouter = Backbone.Router.extend({
 			current_page: undefined,
 			current_view:undefined,
@@ -33,7 +33,47 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 					ok_callback:ok_callback
 				});
 			},
-			
+			create_game:function(quest,callback) {
+				var game = globals.game_collection.find(function(g) {
+					return (g.get('quest').id == quest.id);
+				});
+				
+				var start_new = function(q) {
+					console.log("Starting a game from scratch");
+					game = new Game();
+					globals.game_collection.add(game);
+					game.set_quest(quest);
+					
+					var exist_in_my_quests = globals.my_quests.find(function(q) {
+						return ( q.id == quest.id );
+					});
+					if ( ! exist_in_my_quests ) {
+						globals.my_quests.add(quest);
+					}
+					return game;
+				};
+				
+				if ( game ){
+					console.log("Returning existing game ... ");
+					this.current_view.show_confirmation_popup({
+						title:"Resume Game",
+						message:"Would you like to resume your previous game?",
+						yes_callback:function() {
+							callback(game);
+						},
+						no_callback: function() {
+							globals.game_collection.remove(game);
+							var new_game = start_new();
+							callback(new_game);
+						}
+						
+					});
+				}
+				else {
+					var new_game = start_new();
+					callback(new_game);
+				}
+			},
 			start_quest:function(quest_id) {
 				var quest = Quest.findOrCreate({_id:quest_id},{create:false});
 				if ( !quest ) {
@@ -45,16 +85,17 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 				quest.get('pages').fetch({
 					success: function() {
 						$.mobile.loading("show");
-						var game = new Game();
-						game.set_quest(quest);
-						game_view = new GamePageView({model:game});
-						context.change_page(game_view,
-								{
-							images_loaded: function() {
-								$.mobile.loading("hide");
-							}
-								});
+						var game_created_callback = function(ng) {
+							game_view = new GamePageView({model:ng});
+							context.change_page(game_view,
+									{
+								images_loaded: function() {
+									$.mobile.loading("hide");
+								}
+							});
+						};
 						
+						var game = context.create_game(quest,game_created_callback);
 					},
 					error: function() {
 						$.mobile.loading("hide");
@@ -132,6 +173,7 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 
 			change_page: function(page,callbacks) {
 				var jq_obj = page.render();
+				var prev_view = this.current_view;
 				this.current_view = page;
 				$('body').append(jq_obj);
 				console.log("Change page " + window.location);
@@ -146,7 +188,7 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 					if (callbacks)
 						callbacks.images_loaded();
 					
-					$.mobile.changePage(jq_obj, { changeHash: false } );
+					$.mobile.changePage(jq_obj, { changeHash: false, data:{prev_view: prev_view } } );
 //					page.refresh();
 
 				});

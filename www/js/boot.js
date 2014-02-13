@@ -73,6 +73,7 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 				console.log('B');
 				var dialog = new ConfirmationPopup({
 					message:"Leave Quest?",
+					title:"Exit",
 					yes_callback:function(){
 						navigator.app.backHistory();
 					}

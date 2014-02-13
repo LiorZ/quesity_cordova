@@ -7,6 +7,7 @@ define(['Backbone','text!templates/general_tooltip_popup.html'],function(Backbon
 			if ( options.message ) {
 				this.message = options.message;
 			}
+			this.title = options.title || '';
 			this.page_html = options.page_html || page_html;
 			if (options.events) {
 				this.events = _.extend(this.events,options.events);
@@ -15,7 +16,7 @@ define(['Backbone','text!templates/general_tooltip_popup.html'],function(Backbon
 		render: function() {
 			var html = this.page_html;
 			if (this.message){
-				html = _.template(this.page_html,{message:this.message});
+				html = _.template(this.page_html,{message:this.message,title:this.title});
 			}
 			this.$el = $(html);
 			return this.$el;

@@ -64,6 +64,7 @@ define(['Backbone','chai','models/Game','models/Quest','models/globals'],functio
 	  
 	      it("Checking second page - question page, wrong answer", function(done) {
 	    	  var page = globals.game.get_next_page(4);
+	    	  console.log(page);
 	    	  assert.isUndefined(page);
 	    	  done();
 	      });

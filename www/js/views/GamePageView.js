@@ -27,6 +27,7 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				this.listenTo(this.model,'game:next_page:question',this.next_page_question);
 				this.listenTo(this.model,'game:end', this.handle_game_end);
 				
+				//Initialize the persistance layer:
 			},
 			touch_begin_color:function(e) {
 				var jq = $(e.target);
@@ -47,7 +48,7 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 			},
 			render: function() {
 				var game = this.model;
-				var page = game.get_first_page();
+				var page = game.get('current_page');
 				var page_html = _.template(template,page.toJSON());
 				this.$el.html(page_html);
 				return this.$el;
@@ -123,10 +124,10 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 					page_container.fadeOut(500,function() {
 						next_page_container.html(virtual_page.html());
 						virtual_page.remove();
+						page_container.iscrollview("scrollTo",0,0);
 						page_container.fadeIn(500,function() {
 							$.mobile.loading("hide");
 							page_container.iscrollview("refresh",500,function() {
-								page_container.iscrollview("scrollTo",0,0);
 							});
 						});
 					});
@@ -200,6 +201,10 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				require(['text!templates/quest_end_template.html'], function(page_html) {
 					context.switch_to_page_content(page_html);
 				});
+			},
+			remove: function() {
+				console.log("REMOVING GAME PAGE!!!");
+				JQPageView.prototype.remove.apply(this,[]);
 			}
 			
 			
