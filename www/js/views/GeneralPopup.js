@@ -22,6 +22,7 @@ define(['Backbone','text!templates/general_tooltip_popup.html'],function(Backbon
 			return this.$el;
 		},
 		open_tooltip: function(timeout) {
+			$.mobile.loading("hide");
 			this.$el.popup();
 			this.$el.popup("open");
 			var context = this;

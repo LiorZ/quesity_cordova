@@ -86,6 +86,7 @@ define(['Backbone','views/HomeView','models/QuestCollection','views/FindQuestVie
 					success: function() {
 						$.mobile.loading("show");
 						var game_created_callback = function(ng) {
+							$.mobile.loading("show");
 							game_view = new GamePageView({model:ng});
 							context.change_page(game_view,
 									{
