@@ -15,12 +15,16 @@ require.config({
     swipe:'lib/swipejs/swipe',
     iscroll:'lib/iscroll-4.2/iscroll-lite',
     'jqm-iscroll':'lib/jquery-mobile-iscrollview-1.3.6/jquery.mobile.iscrollview',
+    'backbone-dualstorage':'lib/backbone/backbone.dualstorage'
   },
 
   shim: {
 	'Underscore': {
 		deps:['jQuery'],
 		exports:'_'
+	},
+	'backbone-dualstorage':{
+		deps:['Backbone']
 	},
 	iscroll:{
 		deps:['jQuery']
@@ -124,7 +128,7 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 							type:"POST",
 							url:api.register_facebook,
 							data:json_to_send,
-							timeout:10000,
+							timeout:15000,
 							success:function(data,textStatus,xhr) {
 								console.log('SENT DATA TO QUESITY');
 								navigator.splashscreen.hide();
@@ -143,7 +147,7 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 							},
 							error: function(jqXHR, textStatus, errorThrown){
 								clearTimeout(loading_timeout);
-								FB.logout();
+//								FB.logout();
 								if ( textStatus == "error"){
 									alert("Network error. Please try again");
 									window.location.hash="#login";

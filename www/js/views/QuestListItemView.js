@@ -39,7 +39,13 @@ function(Backbone,item_template,globals) {
 			}
 		},
 		apply_active_style:function(e) {
+			if (!e) {
+				return;
+			}
 			var target = $(e.target);
+			if ( ! target )
+				return;
+			
 			if ( target.hasClass('ui-icon-quesity-book-full') || target.hasClass('ui-icon-quesity-book-empty') ){
 				return;
 			}
@@ -48,7 +54,12 @@ function(Backbone,item_template,globals) {
 		},
 		remove_active_style:function(e) {
 			clearTimeout(this.timeout);
+			if (!e)
+				return;
+			
 			var target = $(e.target);
+			if ( !target )
+				return;
 			if ( target.hasClass('ui-icon-quesity-book-full') || target.hasClass('ui-icon-quesity-book-empty') ){
 				return;
 			}
