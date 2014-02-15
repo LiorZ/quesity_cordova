@@ -50,7 +50,7 @@ function(Backbone,item_template,globals) {
 				return;
 			}
 			var context = this;
-			this.timeout = setTimeout(function( ){ context.$el.addClass('list-item-active'); },20);
+			this.timeout = setTimeout(function( ){ context.$el.addClass('list-item-active'); },50);
 		},
 		remove_active_style:function(e) {
 			clearTimeout(this.timeout);

@@ -101,7 +101,7 @@ body,
 
 .header-icon {
 	height: 2em;
-	margin-right:1em;
+	margin-right:0.2em;
 	display:inline;
 }
 .ui-header h2 {
@@ -229,6 +229,10 @@ li.ui-li-has-thumb>a.ui-btn>p {
 	font-size: x-large !important;
 	font-family:"Roboto" !important;
 	font-weight:400 !important;
+}
+
+.multiple_choice_item {
+	white-space: normal !important; 
 }
 
 .fast-listview-scroll {

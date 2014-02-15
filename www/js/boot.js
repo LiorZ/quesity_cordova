@@ -69,6 +69,7 @@ function(jqm,domReady,Backbone,BackboneRelational,AppRouter,fb_connect,facebook_
 		Backbone.Relational.store.addModelScope(globals);
 		var onBackKeyPress = function() {
 			var page_id = $.mobile.activePage.attr('id');
+			console.log("PAGE ID IS " + page_id);
 			if ( _.isUndefined(page_id) || _.isNull(page_id) ) {
 				navigator.app.backHistory();
 				return;

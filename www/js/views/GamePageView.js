@@ -73,13 +73,7 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				if ( ! game.is_game_over() ) {
 					game.invoke_next_page();	
 				}else {
-					this.show_ok_only_popup({
-						title:"Quest is over",
-						message:"Congratulations! You have reached the end of your quest :)",
-						ok_callback:function() {
-							window.history.go(-2);
-						}
-					});
+					this.show_end_game_popup();
 				}
 				
 			},
@@ -172,7 +166,15 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 					message:"It appears that you are not at the right location .. "
 				});
 			},
-			
+			show_end_game_popup:function() {
+				this.show_ok_only_popup({
+					title:"Quest is over",
+					message:"Congratulations! You have reached the end of your quest :)",
+					ok_callback:function() {
+						window.history.go(-2);
+					}
+				});
+			},
 			show_open_question_dialog: function() {
 				var dialog = new OpenQuestionDialogView({model:this.model});
 				this.$el.append(dialog.render());
@@ -186,10 +188,6 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				this.$el.append(dialog.render());
 				dialog.open_dialog();
 			},
-			page_remove: function() {
-				 $('#page_container').iscrollview("destroy");
-				JQPageView.prototype.page_remove.apply(this,[]);
-			},
 			show_menu: function() {
 				var menu = new GameMenuView();
 				var html = menu.render();
@@ -197,13 +195,10 @@ define(['views/JQPageView','text!templates/game_page_view.html','views/OpenQuest
 				menu.open_tooltip();
 			},
 			handle_game_end: function() {
-				var context = this;
-				require(['text!templates/quest_end_template.html'], function(page_html) {
-					context.switch_to_page_content(page_html);
-				});
+				this.show_end_game_popup();
 			},
 			remove: function() {
-				console.log("REMOVING GAME PAGE!!!");
+				 $('#page_container').iscrollview("destroy");
 				JQPageView.prototype.remove.apply(this,[]);
 			}
 			
