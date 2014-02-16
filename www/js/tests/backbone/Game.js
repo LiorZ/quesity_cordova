@@ -47,7 +47,7 @@ define(['Backbone','chai','models/Game','models/Quest','models/globals'],functio
 	    	 assert.ok(first_page);
 	    	 assert.equal(first_page.get('page_number'),1);
 	    	 var temp_model = new globals.TempModel();
-	    	 assert.ok(temp_model)
+	    	 assert.ok(temp_model);
 	    	 temp_model.listenTo(globals.game,"game:next_page:static",function() {
 	    		 done();
 	    		 temp_model.destroy();

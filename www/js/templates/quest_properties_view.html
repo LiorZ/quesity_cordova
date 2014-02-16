@@ -21,14 +21,22 @@
 		</div>    	
 		<table id="inner-page-quest-data">
 			<tr>
-				<td style="width: 45%;">
+				<td style="width: 50%;">
+					<% if (rating && rating >= 1 ) {
+					for(var i=0; i<Math.floor(rating); ++i) {%>
 					<img src="img/star-full.png" class="rating-stars"/>
-	 				<img src="img/star-full.png" class="rating-stars"/>
-	 				<img src="img/star-full.png" class="rating-stars"/>
-	 				<img src="img/star-full.png" class="rating-stars"/>
-	 				<img src="img/star-full.png" class="rating-stars"/>(5)
+					<%}
+					var reminder = rating - Math.floor(rating);
+					if (reminder >= 0.5 ) {%>
+					<img src="img/star-half.png" class="rating-stars"/>
+					<%}
+					var empty_stars = Math.round(7 - rating);
+					for(var i=0; i<empty_stars; i++){%>
+						<img src="img/star-empty.png" class="rating-stars"/>
+					<%}%>(<%=rating%>)
+					<%}%>
 				</td>
-				<td rowspan="3">
+				<td rowspan="3" style="text-align: right;">
 					<% if (tags && tags.length > 0) { 
 						for(var i=0; i<tags.length; ++i) {
 					%>
@@ -41,13 +49,18 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
-					2h/8Km
+				<td><% var time_num = parseInt(time);
+	 			var h = Math.floor(time_num/60);
+	 			var m = time_num%60;
+	 			if ( m < 10 )
+	 				m = '0'+m
+	 			var time_formatted = h + ':' + m; %>
+					<%=time_formatted%>h/<%=distance%>Km
 				</td>
 			</tr>
 			<tr>
 				<td>
-					1233 Played
+					<%=games_played || 0%> Played
 				</td>
 			</tr>
 		</table>
@@ -55,7 +68,7 @@
 		<div id="collapsibles">
 		<div data-role="collapsible" data-inset="false" data-iconpos="right" id="properties_starting_location">
 			<h4><img src="img/start-point.png"/> Starting Point</h4>
-			<img src="img/map_example.png" style="width: 100%;"/>
+			<img src="<%=map_url%>" style="width: 100%;"/>
 		</div>
 		<div data-role="collapsible" data-inset="false" data-iconpos="right">
 			<h4> <img src="img/desc.png"/>Description</h4>
