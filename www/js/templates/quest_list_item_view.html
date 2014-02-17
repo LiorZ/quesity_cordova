@@ -3,7 +3,10 @@
 	 <div style="margin-left:1.5em;"><h2><%= title %></h2>
 	 <p>
 
-	<% if (rating) {
+	<% 
+	if(!rating){
+		rating = 0;
+	}
 	for(var i=0; i<Math.floor(rating); ++i) {%>
 	<img src="img/star-full.png" class="rating-stars"/>
 	<%}
@@ -11,21 +14,15 @@
 	if (reminder >= 0.5 ) {%>
 	<img src="img/star-half.png" class="rating-stars"/>
 	<%}
-	var empty_stars = Math.round(7 - rating);
+	var empty_stars = Math.round(5 - rating);
 	for(var i=0; i<empty_stars; i++){%>
 		<img src="img/star-empty.png" class="rating-stars"/>
-	<%}%><span id="rating_number">(<%=rating%>)</span>
-	<%}%>
+	<%}%><span id="rating_number" class="rating_number">(<%=rating%>)</span>
 	 	
 	 	<table id="quest-data">
 	 		<tr>
 	 			<td><%=distance%></td>
-	 			<% var time_num = parseInt(time);
-	 			var h = Math.floor(time_num/60);
-	 			var m = time_num%60;
-	 			if ( m < 10 )
-	 				m = '0'+m
-	 			var time_formatted = h + ':' + m; %>
+	 			<% var time_formatted = parseInt(time)/60; %>
 	 			<td><%=time_formatted%></td>
 	 			<td><%= games_played %></td>
 	 		</tr>

@@ -1,6 +1,6 @@
 	<div id="quest_properties_header" data-role="header"  data-position="fixed" class="general_header">
 	<div id="header_container" style="width:100%; text-align: center;">
-		<img src="css/images/icons-png/book-empty.png" class="header-icon" style="width:1em !important;"/>
+		<img src="<% if (saved) {%>css/images/icons-png/book-full.png<%}else{%>css/images/icons-png/book-empty.png<%}%>" class="header-icon" style="width:1em !important;"/>
 		<h2 style="display:inline !important;"><%= title %></h2>
 	</div>
 	</div>
@@ -21,8 +21,10 @@
 		</div>    	
 		<table id="inner-page-quest-data">
 			<tr>
-				<td style="width: 50%;">
-					<% if (rating && rating >= 1 ) {
+				<td style="width: 50%; ">
+					<% 	if(!rating){
+							rating = 0;
+						}
 					for(var i=0; i<Math.floor(rating); ++i) {%>
 					<img src="img/star-full.png" class="rating-stars"/>
 					<%}
@@ -30,11 +32,10 @@
 					if (reminder >= 0.5 ) {%>
 					<img src="img/star-half.png" class="rating-stars"/>
 					<%}
-					var empty_stars = Math.round(7 - rating);
+					var empty_stars = Math.round(5 - rating);
 					for(var i=0; i<empty_stars; i++){%>
 						<img src="img/star-empty.png" class="rating-stars"/>
-					<%}%>(<%=rating%>)
-					<%}%>
+					<%}%><span id="rating_number" class="rating_number">(<%=rating%>)</span>
 				</td>
 				<td rowspan="3" style="text-align: right;">
 					<% if (tags && tags.length > 0) { 
@@ -49,17 +50,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td><% var time_num = parseInt(time);
-	 			var h = Math.floor(time_num/60);
-	 			var m = time_num%60;
-	 			if ( m < 10 )
-	 				m = '0'+m
-	 			var time_formatted = h + ':' + m; %>
+				<td style="font-size:1.3em !important;"><% var time_formatted = parseInt(time)/60; %>
 					<%=time_formatted%>h/<%=distance%>Km
 				</td>
 			</tr>
 			<tr>
-				<td>
+				<td style="font-size:1.3em !important;">
 					<%=games_played || 0%> Played
 				</td>
 			</tr>
@@ -68,6 +64,11 @@
 		<div id="collapsibles">
 		<div data-role="collapsible" data-inset="false" data-iconpos="right" id="properties_starting_location">
 			<h4><img src="img/start-point.png"/> Starting Point</h4>
+				<div style="position:absolute; background:rgba(201, 217, 220, 0.8); width:100%; line-height: 2em; text-align:center;">
+					<span style="margin-right:1em; margin-left: 1em;">
+						<%=starting_location.street%>
+					</span>
+				</div>
 			<img src="<%=map_url%>" style="width: 100%;"/>
 		</div>
 		<div data-role="collapsible" data-inset="false" data-iconpos="right">

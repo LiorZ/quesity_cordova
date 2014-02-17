@@ -1,4 +1,4 @@
-define(['views/JQPageView','text!templates/quest_properties_view.html'],function(JQPageView,template) {
+define(['views/JQPageView','text!templates/quest_properties_view.html','models/globals'],function(JQPageView,template,globals) {
 	
 		var QuestPropertiesView = JQPageView.extend({
 			events: function(){
@@ -9,7 +9,16 @@ define(['views/JQPageView','text!templates/quest_properties_view.html'],function
 				return events;
 			},
 			render: function() {
-				var html = _.template(template,this.model.toJSON());
+				var obj = this.model.toJSON();
+				var is_saved = globals.my_quests.find(function(q) {
+					return q.get('_id') == obj._id;
+				});
+				if ( is_saved ) {
+					obj.saved = true;
+				}else {
+					obj.saved = false;
+				}
+				var html = _.template(template,obj);
 				
 				this.$el.html(html);
 
