@@ -47,8 +47,8 @@ body,
 }
 /* Headers in quest details page */
 .ui-collapsible-heading, .ui-collapsible-heading>.ui-btn {
-	font-family: 'Roboto' !important;
-	font-weight: 400;
+	font-family: RobotoRegular !important;
+	/*font-weight: 400;*/
 	background-color: rgba(201, 217, 220, 0.4) !important;
 	font-size:x-large !important;
 	border-bottom-width:0px;
@@ -62,8 +62,8 @@ body,
 }
 .ui-collapsible-themed-content .ui-collapsible-content {
 	background-color: rgba(50,50,50,0) !important;
-	font-family: "Roboto" !important;
-	font-weight:300;
+	font-family: RobotoLight !important;
+	/*font-weight:300;*/
 	font-size:large;
 }
 .ui-btn-icon-right:after {
@@ -91,7 +91,7 @@ body,
 }
 .ui-header h2,
 .ui-header h1 {
-	font-family:'Andada' !important;
+	font-family:AndanaRegular !important;
 	font-size: 2em !important;
 	vertical-align: middle;
 	position: relative;
@@ -140,14 +140,14 @@ li:nth-child(even).ui-li-has-thumb>a.ui-btn {
 }
 
 .ui-listview>li h2{
-	font-family: "Roboto" !important;
-	font-weight:400;
+	font-family: RobotoRegular !important;
+	/*font-weight:400;*/
 	font-size: x-large !important;
 }
 
 li.ui-li-has-thumb>a.ui-btn>p {
-	font-family: "Roboto" !important;
-	font-weight:400;
+	font-family: RobotoRegular !important;
+	/*font-weight:400;*/
 	font-size:large !important;
 }
 .ui-listview>li p {
@@ -160,8 +160,8 @@ li.ui-li-has-thumb>a.ui-btn>p {
 }
 #quest-data>tr>td,
 #quest-data>tbody>tr>td{
-	font-family: "Roboto" !important;
-	font-weight:400;
+	font-family: RobotoRegular !important;
+	/*font-weight:400;*/
 	text-align: center;
 	font-size: large !important;
 	border-left: 1px solid #103e41;
@@ -205,8 +205,8 @@ li.ui-li-has-thumb>a.ui-btn>p {
 	margin:1em;
 	margin-top:0.6em;
 	font-size:1em;
-	font-family:"Roboto" !important
-	font-weight:300;
+	font-family:RobotoBlack !important
+	/*font-weight:300;*/
 }
 
 #btn_play:focus,
@@ -231,8 +231,8 @@ li.ui-li-has-thumb>a.ui-btn>p {
 
 .multiple_choice_item {
 	font-size: x-large !important;
-	font-family:"Roboto" !important;
-	font-weight:400 !important;
+	font-family:RobotoRegular !important;
+	/*font-weight:400 !important;*/
 }
 
 .multiple_choice_item {
@@ -262,8 +262,8 @@ li.ui-li-has-thumb>a.ui-btn>p {
 	padding-right:0.4em;
 	padding-top:0.11em;
 	padding-bottom:0.39em;
-	font-family: "Roboto" !important;
-	font-weight:300;
+	font-family: RobotoLight !important;
+	/*font-weight:300;*/
 	font-size:medium;
 }
 .ui-collapsible {
@@ -281,8 +281,8 @@ li.ui-li-has-thumb>a.ui-btn>p {
 #inner-page-quest-data{
 	margin-left:1em;
 	margin-right:1em;
-	font-family: "Roboto" !important;
-	font-weight:300;
+	font-family: RobotoLight !important;
+	/*font-weight:300;*/
 	font-size:medium;
 	margin-bottom:0.5em;
 	width:93%;
@@ -361,8 +361,8 @@ li.ui-li-has-thumb>a.ui-btn>p {
 	margin:0px;
 	border-radius: 0px;
 	border:0px;
-	font-weight:400;
-	font-family: "Roboto" !important;
+	/*font-weight:400;*/
+	font-family: RobotoRegular !important;
 }
 
 .game_btn_label {
@@ -372,7 +372,7 @@ li.ui-li-has-thumb>a.ui-btn>p {
 .general_tooltip_style {
 	background-color: rgb(201, 217, 220) !important;
 	font-weight:400;
-	font-family: "Roboto" !important;	
+	font-family: RobotoRegular !important;	
 }
 .confirmation_dialog {
 	min-width: 400px !important;
@@ -385,7 +385,7 @@ li.ui-li-has-thumb>a.ui-btn>p {
 .popup-btn {
 	margin:1em !important; 
 	font-size:x-large !important; 
-	font-family: 'Roboto' !important; 
+	font-family: RobotoRegular !important; 
 	font-weight: 400 !important;
 }
 
